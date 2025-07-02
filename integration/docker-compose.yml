@@ -1,0 +1,49 @@
+version: "3.9"
+services:
+  frontend:
+    restart: always
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      - TZ=UTC
+    build:
+      context: ../frontend
+      target: dev
+    volumes:
+      - ../frontend/assets:/assets
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
+    logging:
+      driver: gelf
+      options:
+        gelf-address: "udp://127.0.0.1:50000"
+        tag: "frontend"
+
+  gateway:
+    restart: always
+    # Enables the web UI and tells Traefik to listen to docker
+    command: --api.insecure=true --providers.docker --providers.docker.exposedbydefault=false --log --ping=true
+    ports:
+      # The HTTP (AND S) port
+      - "80:80"
+      - "443:443"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TZ=UTC
+    build:
+      context: ../gateway
+      target: dev
+
+networks:
+  elk:
+    driver: bridge
+
+volumes:
+  database_pgdata:
+  elasticsearch:
