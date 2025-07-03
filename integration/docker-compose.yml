@@ -2,9 +2,6 @@ version: "3.9"
 services:
   frontend:
     restart: always
-    # depends_on:
-    #   backend:
-    #     condition: service_healthy
     environment:
       - TZ=UTC
     build:
@@ -15,11 +12,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
-    logging:
-      driver: gelf
-      options:
-        gelf-address: "udp://127.0.0.1:50000"
-        tag: "frontend"
 
   gateway:
     restart: always
