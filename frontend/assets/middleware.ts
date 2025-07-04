@@ -6,6 +6,13 @@ export default clerkMiddleware(async (auth, req) => {
   if (!isPublicRoute(req)) {
     await auth.protect()
   }
+}, {
+  signInUrl: "https://80-cs-193857718008-default.cs-europe-west4-pear.cloudshell.dev/auth",
+  signUpUrl: "https://80-cs-193857718008-default.cs-europe-west4-pear.cloudshell.dev/auth",
+  afterSignInUrl: "https://80-cs-193857718008-default.cs-europe-west4-pear.cloudshell.dev/",
+  afterSignUpUrl: "https://80-cs-193857718008-default.cs-europe-west4-pear.cloudshell.dev/",
+  domain: "80-cs-193857718008-default.cs-europe-west4-pear.cloudshell.dev",
+  proxyUrl: "https://80-cs-193857718008-default.cs-europe-west4-pear.cloudshell.dev/"
 })
 
 export const config = {
