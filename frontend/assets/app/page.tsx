@@ -52,7 +52,7 @@ const sampleVideos: Video[] = [
 export default function Home() {
   const [videos, setVideos] = useState<Video[]>(sampleVideos);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
   const [mouseStart, setMouseStart] = useState(0);
@@ -66,18 +66,27 @@ export default function Home() {
   // Handle video play/pause
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
-      if (video) {
-        if (index === currentIndex && isPlaying && !showPlayOverlay) {
-          video.currentTime = 0;
-          const playPromise = video.play();
-          if (playPromise !== undefined) {
-            playPromise.catch((error) => {
-              console.error('Autoplay failed:', error);
-            });
-          }
+      if (!video) return;
+
+      if (index === currentIndex) {
+
+
+        console.log(`isPlaying: ${isPlaying} -- showPlayOverlay: ${showPlayOverlay}`)
+        if (isPlaying && !showPlayOverlay) {
+          video.play().catch((error) =>
+            console.error('Autoplay failed:', error)
+          );
         } else {
           video.pause();
         }
+
+
+
+
+
+      } else {
+        video.pause();
+        video.currentTime = 0; // Reset only other videos
       }
     });
   }, [currentIndex, isPlaying, showPlayOverlay]);
