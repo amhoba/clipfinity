@@ -57,6 +57,7 @@ export default function Home() {
   const [mouseStart, setMouseStart] = useState(0);
   const [mouseEnd, setMouseEnd] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [showPlayOverlay, setShowPlayOverlay] = useState(true);
 
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -65,7 +66,7 @@ export default function Home() {
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
       if (video) {
-        if (index === currentIndex && isPlaying) {
+        if (index === currentIndex && isPlaying && !showPlayOverlay) {
           video.currentTime = 0;
           const playPromise = video.play();
           if (playPromise !== undefined) {
@@ -78,7 +79,7 @@ export default function Home() {
         }
       }
     });
-  }, [currentIndex, isPlaying]);  
+  }, [currentIndex, isPlaying, showPlayOverlay]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -113,8 +114,14 @@ export default function Home() {
 
   // Handle video click (play/pause)
   const handleVideoClick = () => {
-    setIsPlaying(!isPlaying);
+    if (showPlayOverlay) {
+      setShowPlayOverlay(false);
+      setIsPlaying(true);
+    } else {
+      setIsPlaying(prev => !prev);
+    }
   };
+
 
   // Handle touch events for swiping
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -262,6 +269,18 @@ export default function Home() {
               onTouchEnd={handleTouchEnd}
               poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 600'%3E%3Crect width='400' height='600' fill='%23111827'/%3E%3Ctext x='200' y='300' text-anchor='middle' fill='%23fff' font-size='24' font-family='Arial'%3ELoading...%3C/text%3E%3C/svg%3E"
             />
+
+            {/* Video Play Button */}
+            {index === currentIndex && showPlayOverlay && (
+              <div
+                className="absolute inset-0 flex items-center justify-center z-10 bg-black/40 cursor-pointer"
+                onClick={handleVideoClick}
+              >
+                <div className="bg-white/20 p-4 rounded-full backdrop-blur-md">
+                  <Play className="w-10 h-10 text-white" />
+                </div>
+              </div>
+            )}
 
             {/* Video Info Overlay */}
             <div
