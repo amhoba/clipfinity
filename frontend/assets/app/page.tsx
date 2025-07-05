@@ -241,7 +241,8 @@ export default function Home() {
         {videos.map((video, index) => (
           <div
             key={video.id}
-            className="relative h-screen w-full flex items-center justify-center bg-black touch-pan-y"
+            className="relative h-[calc(100vh-64px)] w-full flex items-center justify-center bg-black touch-pan-y"
+
           >
             <video
               ref={el => videoRefs.current[index] = el}
@@ -259,7 +260,7 @@ export default function Home() {
 
             {/* Video Info Overlay */}
             <div
-              className="absolute bottom-20 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 pointer-events-none"
+              className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/70 to-transparent p-4 pointer-events-none"
               style={{ touchAction: 'none' }}
             >
               <div className="flex justify-between items-end">
@@ -308,17 +309,6 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-            </div>
-
-            {/* Video Progress Indicators */}
-            <div className="absolute right-2 top-1/2 transform -translate-y-1/2 space-y-2">
-              {videos.map((_, idx) => (
-                <div
-                  key={idx}
-                  className={`w-1 h-8 rounded-full transition-colors ${idx === currentIndex ? 'bg-white' : 'bg-white/30'
-                    }`}
-                />
-              ))}
             </div>
           </div>
         ))}
