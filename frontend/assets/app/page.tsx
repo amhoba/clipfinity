@@ -57,7 +57,7 @@ export default function Home() {
   const [mouseStart, setMouseStart] = useState(0);
   const [mouseEnd, setMouseEnd] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-  
+
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -83,12 +83,12 @@ export default function Home() {
         setCurrentIndex(prev => prev - 1);
       }
     };
-  
+
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentIndex, videos.length]);  
+  }, [currentIndex, videos.length]);
 
   // Handle like button
   const handleLike = (videoId: string) => {
@@ -96,10 +96,10 @@ export default function Home() {
       prevVideos.map(video =>
         video.id === videoId
           ? {
-              ...video,
-              liked: !video.liked,
-              likes: video.liked ? video.likes - 1 : video.likes + 1,
-            }
+            ...video,
+            liked: !video.liked,
+            likes: video.liked ? video.likes - 1 : video.likes + 1,
+          }
           : video
       )
     );
@@ -122,7 +122,7 @@ export default function Home() {
 
   const handleTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
-    
+
     const distance = touchStart - touchEnd;
     const isUpSwipe = distance > 50;
     const isDownSwipe = distance < -50;
@@ -156,7 +156,7 @@ export default function Home() {
       setIsDragging(false);
       return;
     }
-    
+
     const distance = mouseStart - mouseEnd;
     const isUpSwipe = distance > 50;
     const isDownSwipe = distance < -50;
@@ -256,18 +256,9 @@ export default function Home() {
               onTouchEnd={handleTouchEnd}
               poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 600'%3E%3Crect width='400' height='600' fill='%23111827'/%3E%3Ctext x='200' y='300' text-anchor='middle' fill='%23fff' font-size='24' font-family='Arial'%3ELoading...%3C/text%3E%3C/svg%3E"
             />
-            
-            {/* Play/Pause Overlay */}
-            {!isPlaying && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                <div className="bg-white/20 backdrop-blur-sm rounded-full p-4">
-                  <Play className="w-12 h-12 text-white ml-1" />
-                </div>
-              </div>
-            )}
 
             {/* Video Info Overlay */}
-            <div 
+            <div
               className="absolute bottom-20 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 pointer-events-none"
               style={{ touchAction: 'none' }}
             >
@@ -287,11 +278,10 @@ export default function Home() {
                   >
                     <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
                       <Heart
-                        className={`w-7 h-7 transition-colors ${
-                          video.liked
-                            ? 'fill-red-500 text-red-500'
-                            : 'text-white group-hover:text-red-500'
-                        }`}
+                        className={`w-7 h-7 transition-colors ${video.liked
+                          ? 'fill-red-500 text-red-500'
+                          : 'text-white group-hover:text-red-500'
+                          }`}
                       />
                     </div>
                     <span className="text-white text-xs font-medium mt-1 block">
@@ -325,9 +315,8 @@ export default function Home() {
               {videos.map((_, idx) => (
                 <div
                   key={idx}
-                  className={`w-1 h-8 rounded-full transition-colors ${
-                    idx === currentIndex ? 'bg-white' : 'bg-white/30'
-                  }`}
+                  className={`w-1 h-8 rounded-full transition-colors ${idx === currentIndex ? 'bg-white' : 'bg-white/30'
+                    }`}
                 />
               ))}
             </div>
@@ -340,7 +329,7 @@ export default function Home() {
         <div className="flex items-center justify-around py-3 px-4 text-white">
           <button className="flex flex-col items-center space-y-1">
             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
             </svg>
             <span className="text-xs">Home</span>
           </button>
