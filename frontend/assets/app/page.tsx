@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Heart, Play, Pause } from 'lucide-react';
+import SimpleSpinner from '@/components/misc/simplespinner';
 
 interface Video {
   id: string;
@@ -16,7 +17,7 @@ interface Video {
 const sampleVideos: Video[] = [
   {
     id: '1',
-    src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    src: 'http://127.0.0.1:8080/Pixar_Dog_and_Cat_s_Rainy_Dash.mp4',
     description: 'Big Buck Bunny - A delightful animated short film 🐰',
     likes: 1234,
     views: 5678,
@@ -24,7 +25,7 @@ const sampleVideos: Video[] = [
   },
   {
     id: '2',
-    src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    src: 'http://127.0.0.1:8080/Pixar_Friends_Warmth_and_Trust.mp4',
     description: 'Elephants Dream - Surreal 3D animated adventure 🐘',
     likes: 987,
     views: 3456,
@@ -32,7 +33,7 @@ const sampleVideos: Video[] = [
   },
   {
     id: '3',
-    src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
+    src: 'http://127.0.0.1:8080/Pixar_Rain_Scene_Video_Ready.mp4',
     description: 'Sintel - Epic fantasy short film with dragons 🐉',
     likes: 2341,
     views: 7890,
@@ -40,7 +41,7 @@ const sampleVideos: Video[] = [
   },
   {
     id: '4',
-    src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+    src: 'http://127.0.0.1:8080/Pixar_Video_Max_and_Whiskers.mp4',
     description: 'Tears of Steel - Sci-fi action packed adventure 🚀',
     likes: 1876,
     views: 4321,
