@@ -54,6 +54,9 @@ export default function Home() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
+  const [mouseStart, setMouseStart] = useState(0);
+  const [mouseEnd, setMouseEnd] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -94,6 +97,7 @@ export default function Home() {
   // Handle touch events for swiping
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientY);
+    setTouchEnd(0);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -113,6 +117,51 @@ export default function Home() {
     if (isDownSwipe && currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     }
+
+    // Reset touch values
+    setTouchStart(0);
+    setTouchEnd(0);
+  };
+
+  // Handle mouse events for desktop swiping
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setMouseStart(e.clientY);
+    setMouseEnd(0);
+    setIsDragging(true);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    setMouseEnd(e.clientY);
+  };
+
+  const handleMouseUp = () => {
+    if (!isDragging || !mouseStart || !mouseEnd) {
+      setIsDragging(false);
+      return;
+    }
+    
+    const distance = mouseStart - mouseEnd;
+    const isUpSwipe = distance > 50;
+    const isDownSwipe = distance < -50;
+
+    if (isUpSwipe && currentIndex < videos.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+    if (isDownSwipe && currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+
+    // Reset mouse values
+    setMouseStart(0);
+    setMouseEnd(0);
+    setIsDragging(false);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+    setMouseStart(0);
+    setMouseEnd(0);
   };
 
   // Handle mouse wheel for desktop
@@ -164,7 +213,7 @@ export default function Home() {
       {/* Video Container */}
       <div
         ref={containerRef}
-        className="relative h-full transition-transform duration-300 ease-out"
+        className="relative h-full transition-transform duration-300 ease-out touch-pan-y"
         style={{
           transform: `translateY(-${currentIndex * 100}vh)`,
         }}
@@ -176,16 +225,19 @@ export default function Home() {
         {videos.map((video, index) => (
           <div
             key={video.id}
-            className="relative h-screen w-full flex items-center justify-center bg-black"
+            className="relative h-screen w-full flex items-center justify-center bg-black touch-pan-y"
           >
             <video
               ref={el => videoRefs.current[index] = el}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover touch-pan-y"
               src={video.src}
               loop
               muted
               playsInline
               onClick={handleVideoClick}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
               poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 600'%3E%3Crect width='400' height='600' fill='%23111827'/%3E%3Ctext x='200' y='300' text-anchor='middle' fill='%23fff' font-size='24' font-family='Arial'%3ELoading...%3C/text%3E%3C/svg%3E"
             />
             
@@ -199,7 +251,10 @@ export default function Home() {
             )}
 
             {/* Video Info Overlay */}
-            <div className="absolute bottom-20 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+            <div 
+              className="absolute bottom-20 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 pointer-events-none"
+              style={{ touchAction: 'none' }}
+            >
               <div className="flex justify-between items-end">
                 {/* Description */}
                 <div className="flex-1 text-white pr-4">
@@ -208,7 +263,7 @@ export default function Home() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex flex-col items-center space-y-4">
+                <div className="flex flex-col items-center space-y-4 pointer-events-auto">
                   {/* Like Button */}
                   <button
                     onClick={() => handleLike(video.id)}
@@ -229,7 +284,7 @@ export default function Home() {
                   </button>
 
                   {/* Share Button */}
-                  <button className="group">
+                  <button className="group pointer-events-auto">
                     <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
                       <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
@@ -238,7 +293,7 @@ export default function Home() {
                   </button>
 
                   {/* More Options */}
-                  <button className="group">
+                  <button className="group pointer-events-auto">
                     <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
                       <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
