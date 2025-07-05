@@ -268,7 +268,6 @@ export default function Home() {
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
-              poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 600'%3E%3Crect width='400' height='600' fill='%23111827'/%3E%3Ctext x='200' y='300' text-anchor='middle' fill='%23fff' font-size='24' font-family='Arial'%3ELoading...%3C/text%3E%3C/svg%3E"
             />
 
             {/* Video Play Button */}
