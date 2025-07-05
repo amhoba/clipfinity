@@ -241,8 +241,7 @@ export default function Home() {
         {videos.map((video, index) => (
           <div
             key={video.id}
-            className="relative h-[calc(100vh-64px)] w-full flex items-center justify-center bg-black touch-pan-y"
-
+            className={`relative ${index === currentIndex ? 'h-[calc(100vh-64px)]' : 'h-screen'} w-full flex items-center justify-center bg-black touch-pan-y`}
           >
             <video
               ref={el => videoRefs.current[index] = el}
