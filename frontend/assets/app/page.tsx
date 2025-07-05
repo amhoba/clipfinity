@@ -74,6 +74,22 @@ export default function Home() {
     });
   }, [currentIndex, isPlaying]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowDown' && currentIndex < videos.length - 1) {
+        setCurrentIndex(prev => prev + 1);
+      }
+      if (e.key === 'ArrowUp' && currentIndex > 0) {
+        setCurrentIndex(prev => prev - 1);
+      }
+    };
+  
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [currentIndex, videos.length]);  
+
   // Handle like button
   const handleLike = (videoId: string) => {
     setVideos(prevVideos =>
