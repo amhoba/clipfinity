@@ -63,33 +63,40 @@ export default function Home() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Handle video play/pause
+  // Handle video play/pause on swipe
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
       if (!video) return;
 
       if (index === currentIndex) {
-
-
-        console.log(`isPlaying: ${isPlaying} -- showPlayOverlay: ${showPlayOverlay}`)
-        if (isPlaying && !showPlayOverlay) {
+        if (!showPlayOverlay) {
           video.play().catch((error) =>
             console.error('Autoplay failed:', error)
           );
-        } else {
-          video.pause();
         }
-
-
-
-
-
+        setIsPlaying(true)
       } else {
         video.pause();
         video.currentTime = 0; // Reset only other videos
       }
     });
-  }, [currentIndex, isPlaying, showPlayOverlay]);
+  }, [currentIndex]);
+
+  // Handle video play/pause on click
+  useEffect(() => {
+    const video = videoRefs.current[currentIndex]
+    if (!video) return;
+
+    if (!showPlayOverlay) {
+      if (isPlaying) {
+        video.play().catch((error) =>
+          console.error('Autoplay failed:', error)
+        );
+      } else {
+        video.pause();
+      }
+    }
+  }, [isPlaying, showPlayOverlay]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
