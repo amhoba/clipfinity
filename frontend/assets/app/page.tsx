@@ -66,13 +66,19 @@ export default function Home() {
     videoRefs.current.forEach((video, index) => {
       if (video) {
         if (index === currentIndex && isPlaying) {
-          video.play();
+          video.currentTime = 0;
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.catch((error) => {
+              console.error('Autoplay failed:', error);
+            });
+          }
         } else {
           video.pause();
         }
       }
     });
-  }, [currentIndex, isPlaying]);
+  }, [currentIndex, isPlaying]);  
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -248,7 +254,7 @@ export default function Home() {
               className="h-full w-full object-cover touch-pan-y"
               src={video.src}
               loop
-              muted
+              autoPlay
               playsInline
               onClick={handleVideoClick}
               onTouchStart={handleTouchStart}
