@@ -948,15 +948,16 @@ export default function Home() {
                 <div className="flex-1 text-white pr-4 relative">
                   <p
                     className={`relative pointer-events-auto text-sm font-medium mb-2 whitespace-pre-line transition-all duration-300 ${expandedDescription
-                      ? "max-h-[70vh] overflow-y-auto pr-8"
+                      ? "max-h-[50vh] overflow-y-auto pr-8"
                       : "line-clamp-3 cursor-pointer"
                       }`}
+                    style={{ scrollbarWidth: 'none' }}
                     onClick={() => !expandedDescription && setExpandedDescription(true)}
                   >
                     {video.description}
 
                     {expandedDescription && (
-                      <div className="absolute top-1 right-1 z-10">
+                      <div className="absolute top-1 left-1 z-10">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
