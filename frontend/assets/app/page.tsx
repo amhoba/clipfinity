@@ -948,7 +948,7 @@ export default function Home() {
                 <div className="flex-1 text-white pr-4 relative">
                   <p
                     className={`relative pointer-events-auto text-sm font-medium mb-2 whitespace-pre-line transition-all duration-300 ${expandedDescription
-                      ? "max-h-[80vh] overflow-y-auto pr-8"
+                      ? "max-h-[70vh] overflow-y-auto pr-8"
                       : "line-clamp-3 cursor-pointer"
                       }`}
                     onClick={() => !expandedDescription && setExpandedDescription(true)}
@@ -956,15 +956,19 @@ export default function Home() {
                     {video.description}
 
                     {expandedDescription && (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation(); // prevent triggering expand on click
-                          setExpandedDescription(false);
-                        }}
-                        className="absolute top-1 right-1 p-2 z-10 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors"
-                      >
-                        <X className="w-4 h-4 text-white" />
-                      </button>
+                      <div className="absolute top-1 right-1 z-10">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setExpandedDescription(false);
+                          }}
+                          className="group relative cursor-pointer"
+                        >
+                          <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
+                            <X className="w-7 h-7 text-white group-hover:text-red-500 transition-colors" />
+                          </div>
+                        </button>
+                      </div>
                     )}
                   </p>
 
