@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Heart, Play, Pause, User } from 'lucide-react';
+import { Heart, Play, Pause, User, X } from 'lucide-react';
 import SimpleSpinner from '@/components/misc/simplespinner';
 
 interface Video {
@@ -24,6 +24,98 @@ const sampleVideos: Video[] = [
       "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
       "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
       "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
+      "Join a gentle giant rabbit as he stands up to three mischievous rodents in a peaceful forest.\n" +
+      "This short film is a vibrant tale of friendship, courage, and comedic revenge.\n" +
+      "With lush animation and charming characters, it's a delightful watch for all ages.\n" +
+      "Experience the heartwarming journey that proves even the kindest creatures can be brave.\n" +
       "Perfect for fans of animated storytelling and visual humor 🐰🌳✨",
     likes: 1234,
     views: 5678,
@@ -34,6 +126,120 @@ const sampleVideos: Video[] = [
     src: 'http://127.0.0.1:8080/Pixar_Friends_Warmth_and_Trust.mp4',
     description:
       "Elephants Dream\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
+      "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
+      "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
+      "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
       "Dive into a surreal mechanical world where two men, Proog and Emo, explore a bizarre labyrinth of machines.\n" +
       "As Proog tries to explain the nature of their environment, Emo’s curiosity leads to unexpected tension.\n" +
       "This visually arresting film questions reality, control, and trust in the most imaginative ways.\n" +
@@ -51,6 +257,207 @@ const sampleVideos: Video[] = [
       "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
       "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
       "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
+      "Set in a breathtaking fantasy realm, Sintel's journey is filled with danger, loss, and discovery.\n" +
+      "Each step unveils a deeper emotional truth, culminating in a powerful, unexpected twist.\n" +
+      "Stunning visuals and an evocative score bring this fantasy adventure to life.\n" +
       "A must-watch for lovers of dragons, epic tales, and strong female leads 🐉🔥🎬",
     likes: 2341,
     views: 7890,
@@ -62,6 +469,252 @@ const sampleVideos: Video[] = [
     description:
       "Tears of Steel\n" +
       "A futuristic tale where high-tech meets heartbreak in a battle to save the world.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
+      "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
+      "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
+      "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
       "Set in a dystopian Rotterdam, a team of scientists and soldiers race against time to fix the past.\n" +
       "Combining live-action and CGI, this sci-fi short delivers cinematic scope and emotional depth.\n" +
       "Explore themes of memory, regret, and human resilience against a backdrop of robots and ruins.\n" +
@@ -82,6 +735,7 @@ export default function Home() {
   const [mouseEnd, setMouseEnd] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [showPlayOverlay, setShowPlayOverlay] = useState(true);
+  const [expandedDescription, setExpandedDescription] = useState(false);
 
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -101,6 +755,7 @@ export default function Home() {
       } else {
         video.pause();
         video.currentTime = 0; // Reset only other videos
+        setExpandedDescription(false) // Also shorten the description section
       }
     });
   }, [currentIndex]);
@@ -224,7 +879,7 @@ export default function Home() {
         <div className="flex items-start justify-between p-4 text-white">
           <h1 className="text-2xl font-bold">Clipfinity</h1>
           <div className="flex flex-col space-y-2 items-end pointer-events-auto">
-            
+
             {/* Add Button */}
             <button className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-pointer">
               <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -290,8 +945,29 @@ export default function Home() {
             >
               <div className="flex justify-between items-end">
                 {/* Description */}
-                <div className="flex-1 text-white pr-4">
-                  <p className="text-sm font-medium mb-2 whitespace-pre-line">{video.description}</p>
+                <div className="flex-1 text-white pr-4 relative">
+                  <p
+                    className={`relative pointer-events-auto text-sm font-medium mb-2 whitespace-pre-line transition-all duration-300 ${expandedDescription
+                        ? "max-h-[80vh] overflow-y-auto pr-8"
+                        : "line-clamp-3 cursor-pointer"
+                      }`}
+                    onClick={() => !expandedDescription && setExpandedDescription(true)}
+                  >
+                    {video.description}
+
+                    {expandedDescription && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation(); // prevent triggering expand on click
+                          setExpandedDescription(false);
+                        }}
+                        className="absolute top-1 right-1 p-2 z-10 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors"
+                      >
+                        <X className="w-4 h-4 text-white" />
+                      </button>
+                    )}
+                  </p>
+
                   <p className="text-xs text-white/70">{formatNumber(video.views)} views</p>
                 </div>
 
