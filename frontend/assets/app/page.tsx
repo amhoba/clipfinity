@@ -948,8 +948,8 @@ export default function Home() {
                 <div className="flex-1 text-white pr-4 relative">
                   <p
                     className={`relative pointer-events-auto text-sm font-medium mb-2 whitespace-pre-line transition-all duration-300 ${expandedDescription
-                        ? "max-h-[80vh] overflow-y-auto pr-8"
-                        : "line-clamp-3 cursor-pointer"
+                      ? "max-h-[80vh] overflow-y-auto pr-8"
+                      : "line-clamp-3 cursor-pointer"
                       }`}
                     onClick={() => !expandedDescription && setExpandedDescription(true)}
                   >
