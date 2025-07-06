@@ -197,10 +197,10 @@ export default function Home() {
   return (
     <div className="h-screen bg-black overflow-hidden">
       {/* Header */}
-      <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/50 to-transparent">
+      <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/50 to-transparent pointer-events-none">
         <div className="flex items-start justify-between p-4 text-white">
           <h1 className="text-2xl font-bold">Clipfinity</h1>
-          <div className="flex flex-col space-y-2 items-end">
+          <div className="flex flex-col space-y-2 items-end pointer-events-auto">
             <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
