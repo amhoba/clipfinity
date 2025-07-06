@@ -198,7 +198,7 @@ export default function Home() {
     <div className="h-screen bg-black overflow-hidden">
       {/* Header */}
       <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/50 to-transparent">
-        <div className="flex items-center justify-between p-4 text-white">
+        <div className="flex items-start justify-between p-4 text-white">
           <h1 className="text-2xl font-bold">Clipfinity</h1>
           <div className="flex flex-col space-y-2 items-end">
             <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm">
