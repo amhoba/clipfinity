@@ -778,6 +778,8 @@ export default function Home() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (expandedDescription) return;
+
       if (e.key === 'ArrowDown' && currentIndex < videos.length - 1) {
         setCurrentIndex(prev => prev + 1);
       }
@@ -809,6 +811,8 @@ export default function Home() {
 
   // Handle video click (play/pause)
   const handleVideoClick = () => {
+    if (expandedDescription) return;
+
     if (showPlayOverlay) {
       setShowPlayOverlay(false);
       setIsPlaying(true);
@@ -820,15 +824,21 @@ export default function Home() {
 
   // Handle touch events for swiping
   const handleTouchStart = (e: React.TouchEvent) => {
+    if (expandedDescription) return;
+
     setTouchStart(e.targetTouches[0].clientY);
     setTouchEnd(0);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
+    if (expandedDescription) return;
+
     setTouchEnd(e.targetTouches[0].clientY);
   };
 
   const handleTouchEnd = () => {
+    if (expandedDescription) return;
+
     if (!touchStart || !touchEnd) return;
 
     const distance = touchStart - touchEnd;
@@ -850,6 +860,9 @@ export default function Home() {
   // Handle mouse wheel for desktop
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
+
+    if (expandedDescription) return;
+
     const isScrollUp = e.deltaY > 0;
     const isScrollDown = e.deltaY < 0;
 
@@ -953,43 +966,39 @@ export default function Home() {
                       }`}
                   >
 
-                    <div className={`${expandedDescription ? "max-h-[10vh]" : ""}`}>
+                    {expandedDescription && (
+                      <div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setExpandedDescription(false);
+                          }}
+                          className="group relative cursor-pointer pointer-events-auto"
+                        >
+                          <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
+                            <X className="w-7 h-7 text-white group-hover:text-red-500 transition-colors" />
+                          </div>
+                        </button>
+                      </div>
+                    )}
 
-                      {expandedDescription && (
-                        <div className="pointer-events-auto">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setExpandedDescription(false);
-                            }}
-                            className="group relative cursor-pointer"
-                          >
-                            <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
-                              <X className="w-7 h-7 text-white group-hover:text-red-500 transition-colors" />
-                            </div>
-                          </button>
-                        </div>
-                      )}
+                    {!expandedDescription && (
+                      <div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setExpandedDescription(true);
+                          }}
+                          className="group relative cursor-pointer pointer-events-auto"
+                        >
+                          <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
+                            <ChevronUp className="w-7 h-7 text-white group-hover:text-green-400 transition-colors" />
+                          </div>
+                        </button>
+                      </div>
+                    )}
 
-                      {!expandedDescription && (
-                        <div className="pointer-events-auto">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setExpandedDescription(true);
-                            }}
-                            className="group relative cursor-pointer"
-                          >
-                            <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
-                              <ChevronUp className="w-7 h-7 text-white group-hover:text-green-400 transition-colors" />
-                            </div>
-                          </button>
-                        </div>
-                      )}
-
-                    </div>
-
-                    <p className={`${expandedDescription ? "overflow-y-auto pr-8 max-h-[50vh]" : ""}`} style={{ scrollbarWidth: 'none' }}>
+                    <p className={`${expandedDescription ? "overflow-y-auto max-h-[50vh]" : ""}`} style={{ scrollbarWidth: 'none' }}>
                       {video.description}
                     </p>
 
