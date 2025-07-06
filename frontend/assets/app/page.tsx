@@ -790,7 +790,7 @@ export default function Home() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [currentIndex, videos.length]);
 
   // Handle like button
   const handleLike = (videoId: string) => {
