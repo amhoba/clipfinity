@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Heart, Play, Pause } from 'lucide-react';
+import { Heart, Play, Pause, User } from 'lucide-react';
 import SimpleSpinner from '@/components/misc/simplespinner';
 
 interface Video {
@@ -206,8 +206,8 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
             </button>
-            <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm text-sm text-white">
-              Profile
+            <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors">
+              <User className="w-6 h-6 text-white" />
             </button>
           </div>
         </div>
