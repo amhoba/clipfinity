@@ -203,14 +203,14 @@ export default function Home() {
           <div className="flex flex-col space-y-2 items-end pointer-events-auto">
             
             {/* Add Button */}
-            <button className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors">
+            <button className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-pointer">
               <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
             </button>
 
             {/* Profile Button */}
-            <button className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors">
+            <button className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-pointer">
               <User className="w-7 h-7 text-white" />
             </button>
 
@@ -277,7 +277,7 @@ export default function Home() {
                   {/* Like Button */}
                   <button
                     onClick={() => handleLike(video.id)}
-                    className="group relative"
+                    className="group relative cursor-pointer"
                   >
                     <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
                       <Heart
