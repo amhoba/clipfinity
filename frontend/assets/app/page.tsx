@@ -201,14 +201,19 @@ export default function Home() {
         <div className="flex items-start justify-between p-4 text-white">
           <h1 className="text-2xl font-bold">Clipfinity</h1>
           <div className="flex flex-col space-y-2 items-end pointer-events-auto">
-            <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            
+            {/* Add Button */}
+            <button className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors">
+              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
             </button>
-            <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors">
-              <User className="w-6 h-6 text-white" />
+
+            {/* Profile Button */}
+            <button className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors">
+              <User className="w-7 h-7 text-white" />
             </button>
+
           </div>
         </div>
       </div>
