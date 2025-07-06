@@ -169,47 +169,6 @@ export default function Home() {
     setTouchEnd(0);
   };
 
-  // Handle mouse events for desktop swiping
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setMouseStart(e.clientY);
-    setMouseEnd(0);
-    setIsDragging(true);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    setMouseEnd(e.clientY);
-  };
-
-  const handleMouseUp = () => {
-    if (!isDragging || !mouseStart || !mouseEnd) {
-      setIsDragging(false);
-      return;
-    }
-
-    const distance = mouseStart - mouseEnd;
-    const isUpSwipe = distance > 50;
-    const isDownSwipe = distance < -50;
-
-    if (isUpSwipe && currentIndex < videos.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
-    if (isDownSwipe && currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    }
-
-    // Reset mouse values
-    setMouseStart(0);
-    setMouseEnd(0);
-    setIsDragging(false);
-  };
-
-  const handleMouseLeave = () => {
-    setIsDragging(false);
-    setMouseStart(0);
-    setMouseEnd(0);
-  };
-
   // Handle mouse wheel for desktop
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
@@ -241,16 +200,14 @@ export default function Home() {
       <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/50 to-transparent">
         <div className="flex items-center justify-between p-4 text-white">
           <h1 className="text-2xl font-bold">Clipfinity</h1>
-          <div className="flex space-x-4">
-            <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </button>
+          <div className="flex flex-col space-y-2 items-end">
             <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
+            </button>
+            <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm text-sm text-white">
+              Profile
             </button>
           </div>
         </div>
@@ -271,7 +228,7 @@ export default function Home() {
         {videos.map((video, index) => (
           <div
             key={video.id}
-            className={`relative ${index === currentIndex ? 'h-[calc(100vh-64px)]' : 'h-screen'} w-full flex items-center justify-center bg-black touch-pan-y`}
+            className={`relative h-screen w-full flex items-center justify-center bg-black touch-pan-y`}
           >
             <video
               ref={el => videoRefs.current[index] = el}
@@ -329,63 +286,11 @@ export default function Home() {
                       {formatNumber(video.likes)}
                     </span>
                   </button>
-
-                  {/* Share Button */}
-                  <button className="group pointer-events-auto">
-                    <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
-                      <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
-                      </svg>
-                    </div>
-                  </button>
-
-                  {/* More Options */}
-                  <button className="group pointer-events-auto">
-                    <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
-                      <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                      </svg>
-                    </div>
-                  </button>
                 </div>
               </div>
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Bottom Navigation */}
-      <div className="absolute bottom-0 left-0 right-0 z-30 bg-black/80 backdrop-blur-sm">
-        <div className="flex items-center justify-around py-3 px-4 text-white">
-          <button className="flex flex-col items-center space-y-1">
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-            </svg>
-            <span className="text-xs">Home</span>
-          </button>
-          <button className="flex flex-col items-center space-y-1 text-white/60">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-            <span className="text-xs">Explore</span>
-          </button>
-          <button className="flex flex-col items-center space-y-1 text-white/60">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg>
-            <span className="text-xs">Create</span>
-          </button>
-          <button className="flex flex-col items-center space-y-1 text-white/60">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-            </svg>
-            <span className="text-xs">Likes</span>
-          </button>
-          <button className="flex flex-col items-center space-y-1 text-white/60">
-            <div className="w-6 h-6 bg-white/20 rounded-full"></div>
-            <span className="text-xs">Profile</span>
-          </button>
-        </div>
       </div>
     </div>
   );
