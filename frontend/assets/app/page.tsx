@@ -275,7 +275,7 @@ export default function Home() {
           >
             <video
               ref={el => videoRefs.current[index] = el}
-              className="h-full w-full object-cover touch-pan-y"
+              className="h-full w-full touch-pan-y"
               src={video.src}
               loop
               autoPlay
