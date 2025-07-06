@@ -60,6 +60,7 @@ export default function Home() {
   const [isDragging, setIsDragging] = useState(false);
   const [showPlayOverlay, setShowPlayOverlay] = useState(true);
   const [expandedDescription, setExpandedDescription] = useState(false);
+  const [hasEnteredFullscreen, setHasEnteredFullscreen] = useState(false);
 
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -136,6 +137,16 @@ export default function Home() {
   // Handle video click (play/pause)
   const handleVideoClick = () => {
     if (expandedDescription) return;
+
+    // Request fullscreen only once
+    if (!hasEnteredFullscreen) {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch((err) => {
+          console.error('Fullscreen request failed:', err);
+        });
+      }
+      setHasEnteredFullscreen(true);
+    }
 
     if (showPlayOverlay) {
       setShowPlayOverlay(false);
