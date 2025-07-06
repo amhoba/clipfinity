@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Heart, Play, Pause, User, X } from 'lucide-react';
+import { Heart, Play, Pause, User, X, ChevronUp } from 'lucide-react';
 import SimpleSpinner from '@/components/misc/simplespinner';
 
 interface Video {
@@ -946,34 +946,56 @@ export default function Home() {
               <div className="flex justify-between items-end">
                 {/* Description */}
                 <div className="flex-1 text-white pr-4 relative">
-                  <p
-                    className={`relative pointer-events-auto text-sm font-medium mb-2 whitespace-pre-line transition-all duration-300 ${expandedDescription
-                      ? "max-h-[50vh] overflow-y-auto pr-8"
-                      : "line-clamp-3 cursor-pointer"
+                  <div
+                    className={`relative text-sm font-medium mb-2 whitespace-pre-line transition-all duration-300 ${expandedDescription
+                      ? "max-h-[60vh] pointer-events-auto"
+                      : "line-clamp-4"
                       }`}
-                    style={{ scrollbarWidth: 'none' }}
-                    onClick={() => !expandedDescription && setExpandedDescription(true)}
                   >
-                    {video.description}
 
-                    {expandedDescription && (
-                      <div className="absolute top-1 left-1 z-10">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setExpandedDescription(false);
-                          }}
-                          className="group relative cursor-pointer"
-                        >
-                          <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
-                            <X className="w-7 h-7 text-white group-hover:text-red-500 transition-colors" />
-                          </div>
-                        </button>
-                      </div>
-                    )}
-                  </p>
+                    <div className={`${expandedDescription ? "max-h-[10vh]" : ""}`}>
 
-                  <p className="text-xs text-white/70">{formatNumber(video.views)} views</p>
+                      {expandedDescription && (
+                        <div className="pointer-events-auto">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setExpandedDescription(false);
+                            }}
+                            className="group relative cursor-pointer"
+                          >
+                            <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
+                              <X className="w-7 h-7 text-white group-hover:text-red-500 transition-colors" />
+                            </div>
+                          </button>
+                        </div>
+                      )}
+
+                      {!expandedDescription && (
+                        <div className="pointer-events-auto">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setExpandedDescription(true);
+                            }}
+                            className="group relative cursor-pointer"
+                          >
+                            <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
+                              <ChevronUp className="w-7 h-7 text-white group-hover:text-green-400 transition-colors" />
+                            </div>
+                          </button>
+                        </div>
+                      )}
+
+                    </div>
+
+                    <p className={`${expandedDescription ? "overflow-y-auto pr-8 max-h-[50vh]" : ""}`} style={{ scrollbarWidth: 'none' }}>
+                      {video.description}
+                    </p>
+
+                  </div>
+
+                  <div className="text-xs text-white/70">{formatNumber(video.views)} views</div>
                 </div>
 
                 {/* Action Buttons */}
