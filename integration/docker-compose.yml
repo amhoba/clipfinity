@@ -16,6 +16,40 @@ services:
     networks:
       - clipfinity
 
+  backend:
+    restart: always
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      - TZ=UTC
+    build:
+      context: ../backend
+      target: dev
+    volumes:
+      - ../backend/assets:/assets
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=PathPrefix(`/backend`)"
+      - "traefik.http.middlewares.backend-stripprefix.stripprefix.prefixes=/backend"
+      - "traefik.http.routers.backend.middlewares=backend-stripprefix"
+    networks:
+      - clipfinity
+
+  database:
+    restart: always
+    volumes:
+      - database_pgdata:/var/lib/postgresql/data
+    env_file:
+      - ../database/.env
+    environment:
+      - TZ=UTC
+    build:
+      context: ../database
+      target: dev
+    networks:
+      - clipfinity
+
   gateway:
     restart: always
     # Enables the web UI and tells Traefik to listen to docker
