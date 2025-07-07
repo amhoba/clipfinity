@@ -1,6 +1,6 @@
 # Use Typer CLI
 
-To use this segment of the project you need to install [typer-cli](https://typer.tiangolo.com/typer-cli/).
+To use this segment of the project you need to install [typer-cli](https://typer.tiangolo.com/tutorial/typer-command/).
 
 Install it, then you can use it like this:
 
