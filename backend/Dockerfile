@@ -7,7 +7,7 @@ USER root
 RUN mkdir /assets && chown node:node /assets
 
 USER root
-RUN npm install -g pnpm
+RUN npm install -g pnpm @nestjs/cli
 
 USER node
 RUN echo 'alias l="ls -lh"\nalias ll="ls -alF"' >> ~/.bashrc
