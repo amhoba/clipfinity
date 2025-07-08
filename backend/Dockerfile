@@ -1,7 +1,7 @@
 FROM node:22-slim AS dev
 
 USER root
-RUN apt update -y && apt install netcat-openbsd curl iputils-ping -y
+RUN apt update -y && apt install netcat-openbsd curl iputils-ping procps -y
 
 USER root
 RUN mkdir /assets && chown node:node /assets
