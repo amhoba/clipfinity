@@ -1,9 +1,11 @@
 import type { NextConfig } from "next";
 
+const DOMAIN_URL = process.env.DOMAIN_URL || ""
+
 const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
-      allowedOrigins: ["80-cs-193857718008-default.cs-europe-west4-pear.cloudshell.dev"]
+      allowedOrigins: [DOMAIN_URL]
     }
   }
 };
