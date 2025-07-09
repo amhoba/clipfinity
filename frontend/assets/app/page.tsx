@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Heart, Play, Pause, User, X, ChevronUp } from 'lucide-react';
-import SimpleSpinner from '@/components/misc/simplespinner';
+import { Heart, Play, Pause, User, X, ChevronUp, Upload } from 'lucide-react';
 
 interface Video {
   id: string;
@@ -61,9 +60,12 @@ export default function Home() {
   const [showPlayOverlay, setShowPlayOverlay] = useState(true);
   const [expandedDescription, setExpandedDescription] = useState(false);
   const [hasEnteredFullscreen, setHasEnteredFullscreen] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Handle video play/pause on swipe
   useEffect(() => {
@@ -156,6 +158,68 @@ export default function Home() {
     }
   };
 
+  // Handle file upload
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('video/')) {
+      alert('Please select a video file');
+      return;
+    }
+
+    setIsUploading(true);
+    setUploadProgress(0);
+
+    try {
+      const formData = new FormData();
+      formData.append('video', file);
+
+      const response = await fetch('/backend/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Upload failed: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+
+      // Add the uploaded video to the videos array
+      const newVideo: Video = {
+        id: result.id || Date.now().toString(),
+        src: result.url || URL.createObjectURL(file),
+        description: result.description || `Uploaded video: ${file.name}`,
+        likes: 0,
+        views: 0,
+        liked: false,
+      };
+
+      setVideos(prevVideos => [newVideo, ...prevVideos]);
+      setCurrentIndex(0); // Switch to the newly uploaded video
+
+      alert('Video uploaded successfully!');
+    } catch (error) {
+      console.error('Upload error:', error);
+      alert('Failed to upload video. Please try again.');
+    } finally {
+      setIsUploading(false);
+      setUploadProgress(0);
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
+  // Handle add button click
+  const handleAddButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
   // Handle touch events for swiping
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -222,6 +286,32 @@ export default function Home() {
 
   return (
     <div className="h-screen bg-black overflow-hidden">
+      {/* Hidden file input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="video/*"
+        onChange={handleFileUpload}
+        className="hidden"
+      />
+
+      {/* Upload Progress Overlay */}
+      {isUploading && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+          <div className="bg-white/10 backdrop-blur-lg rounded-lg p-6 text-white text-center">
+            <Upload className="w-12 h-12 mx-auto mb-4 animate-bounce" />
+            <p className="text-lg font-medium mb-2">Uploading video...</p>
+            <div className="w-48 h-2 bg-white/20 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-blue-500 transition-all duration-300"
+                style={{ width: `${uploadProgress}%` }}
+              />
+            </div>
+            <p className="text-sm text-white/70 mt-2">{uploadProgress}%</p>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/50 to-transparent pointer-events-none">
         <div className="flex items-start justify-between p-4 text-white">
@@ -229,10 +319,18 @@ export default function Home() {
           <div className="flex flex-col space-y-2 items-end pointer-events-auto">
 
             {/* Add Button */}
-            <button className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-pointer">
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
+            <button
+              onClick={handleAddButtonClick}
+              disabled={isUploading}
+              className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isUploading ? (
+                <div className="w-7 h-7 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+              )}
             </button>
 
             {/* Profile Button */}
