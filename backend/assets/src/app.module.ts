@@ -7,6 +7,13 @@ import { AppService } from './app.service';
 import { ClerkGuard } from './auth/clerk.guard';
 import { UploadModule } from './upload/upload.module';
 
+import { ConfigModule } from '@nestjs/config';
+import { DatabaseModule } from './database/database.module';
+import { UsersModule } from './users/users.module';
+import { VideosModule } from './videos/videos.module';
+import { LikesModule } from './likes/likes.module';
+import { ViewsModule } from './views/views.module';
+
 @Module({
   imports: [
     // Serve static files (videos)
@@ -15,6 +22,15 @@ import { UploadModule } from './upload/upload.module';
       serveRoot: '/uploads',
     }),
     UploadModule,
+
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    DatabaseModule,
+    UsersModule,
+    VideosModule,
+    LikesModule,
+    ViewsModule,
   ],
   controllers: [AppController],
   providers: [
