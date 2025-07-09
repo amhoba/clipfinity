@@ -190,7 +190,7 @@ export default function Home() {
       // Add the uploaded video to the videos array
       const newVideo: Video = {
         id: result.id || Date.now().toString(),
-        src: result.url || URL.createObjectURL(file),
+        src: `/backend` + result.url || URL.createObjectURL(file),
         description: result.description || `Uploaded video: ${file.name}`,
         likes: 0,
         views: 0,
