@@ -10,11 +10,11 @@ import { Express } from 'express';
 import { UploadService } from './upload.service';
 import { UploadResponseDto } from './dto/upload-response.dto';
 
-@Controller('backend')
+@Controller('upload')
 export class UploadController {
     constructor(private readonly uploadService: UploadService) { }
 
-    @Post('upload')
+    @Post()
     @UseInterceptors(
         FileInterceptor('video', {
             limits: {
