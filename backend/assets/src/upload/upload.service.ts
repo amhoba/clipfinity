@@ -3,6 +3,7 @@ import { Express } from 'express';
 import * as path from 'path';
 import * as fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
+import { UploadResponseDto } from './dto/upload-response.dto';
 
 @Injectable()
 export class UploadService {
