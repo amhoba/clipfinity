@@ -52,6 +52,21 @@ services:
     networks:
       - clipfinity
 
+  pgadmin:
+    restart: always
+    volumes:
+      - ../pgadmin/servers.json:/pgadmin4/servers.json
+    env_file:
+      - ../pgadmin/.env
+    environment:
+      - TZ=UTC
+    build:
+      context: ../pgadmin
+      target: dev
+    depends_on:
+      database:
+        condition: service_healthy
+
   gateway:
     restart: always
     # Enables the web UI and tells Traefik to listen to docker
