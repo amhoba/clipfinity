@@ -37,9 +37,8 @@ export class VideosService {
         });
     }
 
-    async update(id: string, updateVideoDto: UpdateVideoDto): Promise<Video> {
+    async update(id: string, updateVideoDto: UpdateVideoDto): Promise<void> {
         await this.videosRepository.update(id, updateVideoDto);
-        return this.findOne(id);
     }
 
     async remove(id: string): Promise<void> {
