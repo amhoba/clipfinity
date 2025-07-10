@@ -43,6 +43,6 @@ export class VideosService {
     }
 
     async remove(id: string): Promise<void> {
-        await this.videosRepository.delete(id);
+        await this.videosRepository.softDelete({ id });
     }
 }

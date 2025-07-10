@@ -28,6 +28,6 @@ export class LikesService {
     }
 
     async remove(user_id: string, video_id: string): Promise<void> {
-        await this.likesRepository.delete({ user_id, video_id });
+        await this.likesRepository.softDelete({ user_id, video_id });
     }
 }

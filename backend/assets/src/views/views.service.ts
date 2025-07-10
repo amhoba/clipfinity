@@ -22,4 +22,8 @@ export class ViewsService {
     async getViewCount(video_id: string): Promise<number> {
         return this.viewsRepository.count({ where: { video_id } });
     }
+
+    async softDelete(id: string): Promise<void> {
+        await this.viewsRepository.softDelete({ id });
+    }
 }

@@ -30,4 +30,8 @@ export class UsersService {
         }
         return user;
     }
+
+    async softDelete(id: string): Promise<void> {
+        await this.usersRepository.softDelete({ id });
+    }
 }
