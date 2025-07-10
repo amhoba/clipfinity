@@ -1,10 +1,8 @@
-import { Controller, Post, Delete, Param, UseGuards } from '@nestjs/common';
+import { Controller, Post, Delete, Param } from '@nestjs/common';
 import { LikesService } from './likes.service';
-import { ClerkGuard } from '../auth/clerk.guard';
 import { User } from '../auth/user.decorator';
 
 @Controller('likes')
-@UseGuards(ClerkGuard)
 export class LikesController {
     constructor(private readonly likesService: LikesService) { }
 

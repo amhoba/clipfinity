@@ -1,12 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { VideosService } from './videos.service';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { UpdateVideoDto } from './dto/update-video.dto';
-import { ClerkGuard } from '../auth/clerk.guard';
 import { User } from '../auth/user.decorator';
 
 @Controller('videos')
-@UseGuards(ClerkGuard)
 export class VideosController {
     constructor(private readonly videosService: VideosService) { }
 
