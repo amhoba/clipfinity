@@ -1,8 +1,8 @@
 {
     "Servers": {
         "1": {
-            "Name": "default",
-            "Group": "default",
+            "Name": "postgres",
+            "Group": "Servers",
             "Username": "postgres",
             "Password": "postgres",
             "Host": "database",
