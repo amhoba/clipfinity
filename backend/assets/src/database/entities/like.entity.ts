@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, DeleteDateColumn, JoinColumn } from 'typeorm';
 import { User } from './user.entity';
 import { Video } from './video.entity';
 
@@ -15,6 +15,9 @@ export class Like {
 
     @CreateDateColumn()
     created_at: Date;
+
+    @DeleteDateColumn()
+    deleted_at?: Date; // Add for soft delete
 
     @ManyToOne(() => User, user => user.likes)
     @JoinColumn({ name: 'user_id' })

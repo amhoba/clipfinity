@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
 import { Video } from './video.entity';
 import { Like } from './like.entity';
 import { View } from './view.entity';
@@ -16,6 +16,9 @@ export class User {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @DeleteDateColumn()
+    deleted_at?: Date; // Add for soft delete
 
     @OneToMany(() => Video, video => video.user)
     videos: Video[];
