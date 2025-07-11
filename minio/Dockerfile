@@ -7,6 +7,8 @@ ENTRYPOINT ["minio"]
 
 CMD ["server", "/data", "--console-address", ":9001"]
 
+HEALTHCHECK --interval=10s --start-period=5s CMD curl -f http://localhost:9000/minio/health/ready || exit 1
+
 #
 #
 #
