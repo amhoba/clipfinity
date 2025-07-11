@@ -38,6 +38,22 @@ services:
     networks:
       - clipfinity
 
+  minio:
+    restart: always
+    volumes:
+      - minio_data:/data
+    env_file:
+      - ../minio/.env
+    environment:
+      - TZ=UTC
+    build:
+      context: ../minio
+      target: dev
+    ports:
+      - "8002:9001"   # Console UI
+    networks:
+      - clipfinity
+
   database:
     restart: always
     volumes:
@@ -98,3 +114,4 @@ networks:
 
 volumes:
   database_pgdata:
+  minio_data:

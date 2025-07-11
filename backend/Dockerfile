@@ -25,12 +25,4 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl 
 #
 #
 
-FROM dev as staging
-
-#
-#
-#
-#
-#
-
-FROM staging as prod
+FROM dev AS prod

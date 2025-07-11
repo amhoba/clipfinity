@@ -38,14 +38,6 @@ FROM dev AS dev-build
 # RUN yarn build
 # RUN ls -lah
 
-FROM dev AS staging
+FROM dev AS prod
 # [todo] copy from dev-build.
 CMD ["bash", "-c", "yarn start"]
-
-#
-#
-#
-#
-#
-
-FROM staging as prod

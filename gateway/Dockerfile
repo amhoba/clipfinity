@@ -1,4 +1,4 @@
-FROM traefik:v3.4.3 as dev
+FROM traefik:v3.4.3 AS dev
 RUN apk update && apk add bash curl
 EXPOSE 80 443 8080
 HEALTHCHECK --interval=10s --timeout=3s --start-period=5s --retries=3 \
@@ -10,12 +10,4 @@ HEALTHCHECK --interval=10s --timeout=3s --start-period=5s --retries=3 \
 #
 #
 
-FROM dev as staging
-
-#
-#
-#
-#
-#
-
-FROM staging as prod
+FROM dev AS prod
