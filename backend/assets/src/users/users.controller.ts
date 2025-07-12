@@ -8,7 +8,7 @@ export class UsersController {
 
     @Get('profile')
     async getProfile(@User() user: any) {
-        return this.usersService.findByClerkHash(user.clerk_hash);
+        return this.usersService.findOrCreate(user.clerk_hash);
     }
 
     @Get(':id')

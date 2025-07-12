@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Heart, Play, Pause, User, X, ChevronUp, Upload } from 'lucide-react';
+import Cookies from 'js-cookie';
 
 interface Video {
   id: string;
@@ -120,6 +121,44 @@ export default function Home() {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [currentIndex, videos.length, expandedDescription]);
+
+  useEffect(() => {
+    const checkOrCreateUser = async () => {
+      // Get the current session cookie
+      const currentSession = Cookies.get('__session');
+      const lastSession = Cookies.get('last_session');
+
+      // If sessions match, user is already checked
+      if (currentSession && currentSession === lastSession) {
+        console.log('User already synced.');
+        return;
+      }
+
+      try {
+        // Call your backend to trigger findOrCreate
+        const response = await fetch('/backend/users/profile', {
+          credentials: 'include',
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to check user profile.');
+        }
+
+        const userData = await response.json();
+        console.log('User data:', userData);
+
+        // Set cookie so you don’t repeat this on next load
+        if (currentSession) {
+          Cookies.set('last_session', currentSession, { sameSite: 'Strict' });
+        }
+
+      } catch (error) {
+        console.error('User check/create failed:', error);
+      }
+    };
+
+    checkOrCreateUser();
+  }, []);
 
   // Handle like button
   const handleLike = (videoId: string) => {
