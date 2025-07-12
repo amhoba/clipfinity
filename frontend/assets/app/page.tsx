@@ -149,7 +149,7 @@ export default function Home() {
 
         // Set cookie so you don’t repeat this on next load
         if (currentSession) {
-          Cookies.set('last_session', currentSession, { sameSite: 'Strict' });
+          Cookies.set('last_session', currentSession, { sameSite: 'Lax' });
         }
 
       } catch (error) {
