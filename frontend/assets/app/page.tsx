@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Heart, Play, Pause, User, X, ChevronUp, Upload } from 'lucide-react';
-import Cookies from 'js-cookie';
+import { useUser } from '@clerk/nextjs'
 
 interface Video {
   id: string;
@@ -63,10 +63,13 @@ export default function Home() {
   const [hasEnteredFullscreen, setHasEnteredFullscreen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [userSynced, setUserSynced] = useState(false);
 
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const { user } = useUser();
 
   // Handle video play/pause on swipe
   useEffect(() => {
@@ -124,12 +127,7 @@ export default function Home() {
 
   useEffect(() => {
     const checkOrCreateUser = async () => {
-      // Get the current session cookie
-      const currentSession = Cookies.get('__session');
-      const lastSession = Cookies.get('last_session');
-
-      // If sessions match, user is already checked
-      if (currentSession && currentSession === lastSession) {
+      if (userSynced) {
         console.log('User already synced.');
         return;
       }
@@ -145,12 +143,9 @@ export default function Home() {
         }
 
         const userData = await response.json();
-        console.log('User data:', userData);
+        console.log('User synced. User data:', userData);
 
-        // Set cookie so you don’t repeat this on next load
-        if (currentSession) {
-          Cookies.set('last_session', currentSession, { sameSite: 'Lax' });
-        }
+        setUserSynced(true);
 
       } catch (error) {
         console.error('User check/create failed:', error);
