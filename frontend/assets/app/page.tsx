@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Heart, Play, Pause, User, X, ChevronUp, Upload } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -380,13 +380,16 @@ export default function Home() {
       {/* Video Creation Slider */}
       <Dialog open={isSliderOpen} onOpenChange={setIsSliderOpen}>
         <DialogContent className="max-w-full h-full rounded-l-lg border-none bg-gray-900 p-6 sm:max-w-full sm:rounded-r-none">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-white">Create New Video</DialogTitle>
-            <DialogClose asChild>
-              <Button variant="ghost" size="icon" onClick={handleCloseSlider}>
-                <X className="h-6 w-6 text-white" />
-              </Button>
-            </DialogClose>
+          <DialogHeader className="flex flex-row items-center justify-between">
+            <DialogTitle className="text-2xl font-bold text-white text-left">Create New Video</DialogTitle>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleCloseSlider}
+              className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-pointer"
+            >
+              <X className="h-7 w-7 text-white" />
+            </Button>
           </DialogHeader>
           <div className="flex-1 overflow-y-auto space-y-6">
             <div className="space-y-2">
