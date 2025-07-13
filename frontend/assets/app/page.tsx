@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Heart, Play, Pause, User, X, ChevronUp, Upload } from 'lucide-react';
-import { useUser } from '@clerk/nextjs'
 
 interface Video {
   id: string;
@@ -63,13 +62,10 @@ export default function Home() {
   const [hasEnteredFullscreen, setHasEnteredFullscreen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [userSynced, setUserSynced] = useState(false);
 
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const { user } = useUser();
 
   // Handle video play/pause on swipe
   useEffect(() => {
@@ -127,11 +123,6 @@ export default function Home() {
 
   useEffect(() => {
     const checkOrCreateUser = async () => {
-      if (userSynced) {
-        console.log('User already synced.');
-        return;
-      }
-
       try {
         // Call your backend to trigger findOrCreate
         const response = await fetch('/backend/users/profile', {
@@ -144,8 +135,6 @@ export default function Home() {
 
         const userData = await response.json();
         console.log('User synced. User data:', userData);
-
-        setUserSynced(true);
 
       } catch (error) {
         console.error('User check/create failed:', error);
