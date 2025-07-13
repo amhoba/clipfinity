@@ -414,21 +414,29 @@ export default function Home() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="video" className="text-lg text-white/70 font-medium">Video File</Label>
-              <Button
-                variant="outline"
-                className="w-full bg-white/10 text-white border-white/20 hover:bg-white/20 text-lg p-3 h-12"
+              <button
                 onClick={() => fileInputRef.current?.click()}
+                disabled={isUploading}
+                className="w-full p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-lg text-white flex items-center justify-center"
               >
+                <Upload className="w-7 h-7 mr-2" />
                 {selectedFile ? selectedFile.name : 'Select video file'}
-              </Button>
+              </button>
             </div>
-            <Button
+            <button
               onClick={handleFormSubmit}
               disabled={isUploading}
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white text-lg p-3 h-12"
+              className="w-full p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-lg text-white flex items-center justify-center"
             >
-              {isUploading ? 'Uploading...' : 'Upload Video'}
-            </Button>
+              {isUploading ? (
+                <div className="w-7 h-7 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <>
+                  <Upload className="w-7 h-7 mr-2" />
+                  Upload Video
+                </>
+              )}
+            </button>
           </div>
         </DialogContent>
       </Dialog>
