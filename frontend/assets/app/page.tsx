@@ -380,7 +380,7 @@ export default function Home() {
       {/* Video Creation Slider */}
       <Dialog open={isSliderOpen} onOpenChange={setIsSliderOpen}>
         <DialogContent className="max-w-full h-full rounded-l-lg border-none bg-gray-900 p-6 sm:max-w-full sm:rounded-r-none">
-          <DialogHeader className="flex flex-row items-center justify-between">
+          <DialogHeader className="flex flex-row items-center justify-between mb-6">
             <DialogTitle className="text-2xl font-bold text-white text-left">Create New Video</DialogTitle>
             <Button
               variant="ghost"
@@ -391,46 +391,46 @@ export default function Home() {
               <X className="h-7 w-7 text-white" />
             </Button>
           </DialogHeader>
-          <div className="flex-1 overflow-y-auto space-y-6">
+          <div className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="title" className="text-white/70">Title</Label>
+              <Label htmlFor="title" className="text-lg text-white/70 font-medium">Title</Label>
               <Input
                 id="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Enter video title"
-                className="bg-white/10 border-white/20 text-white focus:border-blue-500"
+                className="bg-white/10 border-white/20 text-white text-lg p-3 h-12 focus:border-blue-500"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="description" className="text-white/70">Description</Label>
+              <Label htmlFor="description" className="text-lg text-white/70 font-medium">Description</Label>
               <Textarea
                 id="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Enter video description"
                 rows={4}
-                className="bg-white/10 border-white/20 text-white focus:border-blue-500"
+                className="bg-white/10 border-white/20 text-white text-lg p-3 focus:border-blue-500"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="video" className="text-white/70">Video File</Label>
+              <Label htmlFor="video" className="text-lg text-white/70 font-medium">Video File</Label>
               <Button
                 variant="outline"
-                className="w-full bg-white/10 text-white border-white/20 hover:bg-white/20"
+                className="w-full bg-white/10 text-white border-white/20 hover:bg-white/20 text-lg p-3 h-12"
                 onClick={() => fileInputRef.current?.click()}
               >
                 {selectedFile ? selectedFile.name : 'Select video file'}
               </Button>
             </div>
+            <Button
+              onClick={handleFormSubmit}
+              disabled={isUploading}
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white text-lg p-3 h-12"
+            >
+              {isUploading ? 'Uploading...' : 'Upload Video'}
+            </Button>
           </div>
-          <Button
-            onClick={handleFormSubmit}
-            disabled={isUploading}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white"
-          >
-            {isUploading ? 'Uploading...' : 'Upload Video'}
-          </Button>
         </DialogContent>
       </Dialog>
 
