@@ -2,6 +2,11 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Heart, Play, Pause, User, X, ChevronUp, Upload } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 
 interface Video {
   id: string;
@@ -54,14 +59,16 @@ export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
-  const [mouseStart, setMouseStart] = useState(0);
-  const [mouseEnd, setMouseEnd] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [showPlayOverlay, setShowPlayOverlay] = useState(true);
   const [expandedDescription, setExpandedDescription] = useState(false);
   const [hasEnteredFullscreen, setHasEnteredFullscreen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [isSliderOpen, setIsSliderOpen] = useState(false);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -105,7 +112,7 @@ export default function Home() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (expandedDescription) return;
+      if (expandedDescription || isSliderOpen) return;
 
       if (e.key === 'ArrowDown' && currentIndex < videos.length - 1) {
         setCurrentIndex(prev => prev + 1);
@@ -119,12 +126,11 @@ export default function Home() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentIndex, videos.length, expandedDescription]);
+  }, [currentIndex, videos.length, expandedDescription, isSliderOpen]);
 
   useEffect(() => {
     const checkOrCreateUser = async () => {
       try {
-        // Call your backend to trigger findOrCreate
         const response = await fetch('/backend/users/profile', {
           credentials: 'include',
         });
@@ -135,7 +141,6 @@ export default function Home() {
 
         const userData = await response.json();
         console.log('User synced. User data:', userData);
-
       } catch (error) {
         console.error('User check/create failed:', error);
       }
@@ -161,9 +166,8 @@ export default function Home() {
 
   // Handle video click (play/pause)
   const handleVideoClick = () => {
-    if (expandedDescription) return;
+    if (expandedDescription || isSliderOpen) return;
 
-    // Request fullscreen only once
     if (!hasEnteredFullscreen) {
       if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen().catch((err) => {
@@ -181,14 +185,22 @@ export default function Home() {
     }
   };
 
-  // Handle file upload
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  // Handle file selection
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (!file) return;
-
-    // Validate file type
-    if (!file.type.startsWith('video/')) {
+    if (file && file.type.startsWith('video/')) {
+      setSelectedFile(file);
+    } else {
       alert('Please select a video file');
+      setSelectedFile(null);
+    }
+  };
+
+  // Handle form submission
+  const handleFormSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (!selectedFile || !title || !description) {
+      alert('Please fill in all fields and select a video file');
       return;
     }
 
@@ -196,70 +208,101 @@ export default function Home() {
     setUploadProgress(0);
 
     try {
+      // Step 1: Upload the video file
       const formData = new FormData();
-      formData.append('video', file);
+      formData.append('video', selectedFile);
 
-      const response = await fetch('/backend/upload', {
+      const uploadResponse = await fetch('/backend/upload', {
         method: 'POST',
         body: formData,
       });
 
-      if (!response.ok) {
-        throw new Error(`Upload failed: ${response.statusText}`);
+      if (!uploadResponse.ok) {
+        throw new Error(`Upload failed: ${uploadResponse.statusText}`);
       }
 
-      const result = await response.json();
+      const uploadResult = await uploadResponse.json();
+
+      // Step 2: Create video entry in database
+      const createVideoResponse = await fetch('/backend/videos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title,
+          description,
+        }),
+        credentials: 'include',
+      });
+
+      if (!createVideoResponse.ok) {
+        throw new Error(`Video creation failed: ${createVideoResponse.statusText}`);
+      }
+
+      const videoData = await createVideoResponse.json();
 
       // Add the uploaded video to the videos array
       const newVideo: Video = {
-        id: result.id || Date.now().toString(),
-        src: `/backend` + result.url || URL.createObjectURL(file),
-        description: result.description || `Uploaded video: ${file.name}`,
+        id: videoData.id || Date.now().toString(),
+        src: `/backend${uploadResult.url}`,
+        description: description,
         likes: 0,
         views: 0,
         liked: false,
       };
 
       setVideos(prevVideos => [newVideo, ...prevVideos]);
-      setCurrentIndex(0); // Switch to the newly uploaded video
-
-      alert('Video uploaded successfully!');
+      setCurrentIndex(0);
+      setIsSliderOpen(false);
+      setTitle('');
+      setDescription('');
+      setSelectedFile(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+      alert('Video uploaded and created successfully!');
     } catch (error) {
       console.error('Upload error:', error);
       alert('Failed to upload video. Please try again.');
     } finally {
       setIsUploading(false);
       setUploadProgress(0);
-      // Reset file input
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
     }
   };
 
   // Handle add button click
   const handleAddButtonClick = () => {
+    setIsSliderOpen(true);
+  };
+
+  // Handle slider close
+  const handleCloseSlider = () => {
+    setIsSliderOpen(false);
+    setTitle('');
+    setDescription('');
+    setSelectedFile(null);
     if (fileInputRef.current) {
-      fileInputRef.current.click();
+      fileInputRef.current.value = '';
     }
   };
 
   // Handle touch events for swiping
   const handleTouchStart = (e: React.TouchEvent) => {
-    if (expandedDescription) return;
+    if (expandedDescription || isSliderOpen) return;
 
     setTouchStart(e.targetTouches[0].clientY);
     setTouchEnd(0);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (expandedDescription) return;
+    if (expandedDescription || isSliderOpen) return;
 
     setTouchEnd(e.targetTouches[0].clientY);
   };
 
   const handleTouchEnd = () => {
-    if (expandedDescription) return;
+    if (expandedDescription || isSliderOpen) return;
 
     if (!touchStart || !touchEnd) return;
 
@@ -274,7 +317,6 @@ export default function Home() {
       setCurrentIndex(currentIndex - 1);
     }
 
-    // Reset touch values
     setTouchStart(0);
     setTouchEnd(0);
   };
@@ -283,7 +325,7 @@ export default function Home() {
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
 
-    if (expandedDescription) return;
+    if (expandedDescription || isSliderOpen) return;
 
     const isScrollUp = e.deltaY > 0;
     const isScrollDown = e.deltaY < 0;
@@ -314,7 +356,7 @@ export default function Home() {
         ref={fileInputRef}
         type="file"
         accept="video/*"
-        onChange={handleFileUpload}
+        onChange={handleFileChange}
         className="hidden"
       />
 
@@ -335,12 +377,65 @@ export default function Home() {
         </div>
       )}
 
+      {/* Video Creation Slider */}
+      <Dialog open={isSliderOpen} onOpenChange={setIsSliderOpen}>
+        <DialogContent className="max-w-full h-full rounded-l-lg border-none bg-gray-900 p-6 sm:max-w-full sm:rounded-r-none">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-white">Create New Video</DialogTitle>
+            <DialogClose asChild>
+              <Button variant="ghost" size="icon" onClick={handleCloseSlider}>
+                <X className="h-6 w-6 text-white" />
+              </Button>
+            </DialogClose>
+          </DialogHeader>
+          <div className="flex-1 overflow-y-auto space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="title" className="text-white/70">Title</Label>
+              <Input
+                id="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Enter video title"
+                className="bg-white/10 border-white/20 text-white focus:border-blue-500"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="description" className="text-white/70">Description</Label>
+              <Textarea
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Enter video description"
+                rows={4}
+                className="bg-white/10 border-white/20 text-white focus:border-blue-500"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="video" className="text-white/70">Video File</Label>
+              <Button
+                variant="outline"
+                className="w-full bg-white/10 text-white border-white/20 hover:bg-white/20"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                {selectedFile ? selectedFile.name : 'Select video file'}
+              </Button>
+            </div>
+          </div>
+          <Button
+            onClick={handleFormSubmit}
+            disabled={isUploading}
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white"
+          >
+            {isUploading ? 'Uploading...' : 'Upload Video'}
+          </Button>
+        </DialogContent>
+      </Dialog>
+
       {/* Header */}
       <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/50 to-transparent pointer-events-none">
         <div className="flex items-start justify-between p-4 text-white">
           <h1 className="text-2xl font-bold">Clipfinity</h1>
           <div className="flex flex-col space-y-2 items-end pointer-events-auto">
-
             {/* Add Button */}
             <button
               onClick={handleAddButtonClick}
@@ -355,12 +450,10 @@ export default function Home() {
                 </svg>
               )}
             </button>
-
             {/* Profile Button */}
             <button className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-pointer">
               <User className="w-7 h-7 text-white" />
             </button>
-
           </div>
         </div>
       </div>
@@ -394,7 +487,6 @@ export default function Home() {
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
             />
-
             {/* Video Play Button */}
             {index === currentIndex && showPlayOverlay && (
               <div
@@ -406,7 +498,6 @@ export default function Home() {
                 </div>
               </div>
             )}
-
             {/* Video Info Overlay */}
             <div
               className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/70 to-transparent p-4 pointer-events-none"
@@ -416,12 +507,9 @@ export default function Home() {
                 {/* Description */}
                 <div className="flex-1 text-white pr-4 relative">
                   <div
-                    className={`relative text-sm font-medium mb-2 whitespace-pre-line transition-all duration-300 ${expandedDescription
-                      ? "pointer-events-auto"
-                      : "line-clamp-4"
+                    className={`relative text-sm font-medium mb-2 whitespace-pre-line transition-all duration-300 ${expandedDescription ? "pointer-events-auto" : "line-clamp-4"
                       }`}
                   >
-
                     {expandedDescription && (
                       <div>
                         <button
@@ -437,7 +525,6 @@ export default function Home() {
                         </button>
                       </div>
                     )}
-
                     {!expandedDescription && (
                       <div>
                         <button
@@ -453,16 +540,12 @@ export default function Home() {
                         </button>
                       </div>
                     )}
-
                     <p className={`${expandedDescription ? "overflow-y-auto max-h-[50vh]" : ""}`} style={{ scrollbarWidth: 'none' }}>
                       {video.description}
                     </p>
-
                   </div>
-
                   <div className="text-xs text-white/70">{formatNumber(video.views)} views</div>
                 </div>
-
                 {/* Action Buttons */}
                 <div className="flex flex-col items-center space-y-4 pointer-events-auto">
                   {/* Like Button */}
@@ -472,9 +555,7 @@ export default function Home() {
                   >
                     <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
                       <Heart
-                        className={`w-7 h-7 transition-colors ${video.liked
-                          ? 'fill-red-500 text-red-500'
-                          : 'text-white group-hover:text-red-500'
+                        className={`w-7 h-7 transition-colors ${video.liked ? 'fill-red-500 text-red-500' : 'text-white group-hover:text-red-500'
                           }`}
                       />
                     </div>
