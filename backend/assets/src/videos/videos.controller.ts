@@ -3,16 +3,17 @@ import { VideosService } from './videos.service';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { UpdateVideoDto } from './dto/update-video.dto';
 import { User } from '../auth/user.decorator';
+import { ClerkUserDTO } from '../auth/dto/clerkuser.dto';
 
 @Controller('videos')
 export class VideosController {
     constructor(private readonly videosService: VideosService) { }
 
     @Post()
-    create(@Body() createVideoDto: CreateVideoDto, @User() user: any) {
+    create(@Body() createVideoDto: CreateVideoDto, @User() user: ClerkUserDTO) {
         return this.videosService.create({
             ...createVideoDto,
-            user_id: user.id,
+            user_id: user.sub,
         });
     }
 
@@ -22,8 +23,8 @@ export class VideosController {
     }
 
     @Get('my-videos')
-    findMyVideos(@User() user: any) {
-        return this.videosService.findByUserId(user.id);
+    findMyVideos(@User() user: ClerkUserDTO) {
+        return this.videosService.findByUserId(user.sub);
     }
 
     @Get(':id')

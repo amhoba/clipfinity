@@ -1,11 +1,11 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { ClerkUserDTO } from './dto/clerkuser.dto';
 
 export const User = createParamDecorator(
-  (data: unknown, ctx: ExecutionContext) => {
+  (data: unknown, ctx: ExecutionContext): ClerkUserDTO => {
     const request = ctx.switchToHttp().getRequest();
     const user = request.user;
     
-    // Ensure user object exists and has a 'sub' property
-    return { sub: user?.sub || '' };
+    return user;
   },
 );
