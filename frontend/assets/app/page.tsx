@@ -382,14 +382,13 @@ export default function Home() {
         <DialogContent className="max-w-full h-full rounded-l-lg border-none bg-gray-900 p-6 sm:max-w-full sm:rounded-r-none flex flex-col justify-start">
           <DialogHeader className="flex flex-row items-center justify-between mb-6">
             <DialogTitle className="text-2xl font-bold text-white text-left">Create New Video</DialogTitle>
-            <Button
-              variant="ghost"
-              size="icon"
+            <button
               onClick={handleCloseSlider}
-              className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-pointer"
+              disabled={isUploading}
+              className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <X className="h-7 w-7 text-white" />
-            </Button>
+            </button>
           </DialogHeader>
           <div className="space-y-6">
             <div className="space-y-2">
