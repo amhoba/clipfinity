@@ -379,7 +379,7 @@ export default function Home() {
 
       {/* Video Creation Slider */}
       <Dialog open={isSliderOpen} onOpenChange={setIsSliderOpen}>
-        <DialogContent className="max-w-full h-full rounded-l-lg border-none bg-gray-900 p-6 sm:max-w-full sm:rounded-r-none flex flex-col justify-start">
+        <DialogContent className="max-w-full h-full rounded-l-lg border-none bg-gray-900 p-4 sm:max-w-full sm:rounded-r-none flex flex-col justify-start">
           <DialogHeader className="flex flex-row items-center justify-between mb-6">
             <DialogTitle className="text-2xl font-bold text-white text-left">Create New Video</DialogTitle>
             <button
