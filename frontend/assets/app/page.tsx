@@ -69,6 +69,7 @@ export default function Home() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [wasPlayingBeforeDialog, setWasPlayingBeforeDialog] = useState(false);
 
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -96,10 +97,10 @@ export default function Home() {
 
   // Handle video play/pause on click
   useEffect(() => {
-    const video = videoRefs.current[currentIndex]
+    const video = videoRefs.current[currentIndex];
     if (!video) return;
 
-    if (!showPlayOverlay) {
+    if (!showPlayOverlay && !expandedDescription && !isSliderOpen) {
       if (isPlaying) {
         video.play().catch((error) =>
           console.error('Autoplay failed:', error)
@@ -108,7 +109,7 @@ export default function Home() {
         video.pause();
       }
     }
-  }, [isPlaying, showPlayOverlay]);
+  }, [isPlaying, showPlayOverlay, expandedDescription, isSliderOpen]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -148,6 +149,24 @@ export default function Home() {
 
     checkOrCreateUser();
   }, []);
+
+  useEffect(() => {
+    const currentVideo = videoRefs.current[currentIndex];
+    if (!currentVideo) return;
+
+    if (expandedDescription || isSliderOpen) {
+      // When dialog opens, remember if video was playing and pause it
+      setWasPlayingBeforeDialog(isPlaying);
+      currentVideo.pause();
+      setIsPlaying(false);
+    } else {
+      // When dialog closes, resume playback if it was playing before
+      if (wasPlayingBeforeDialog && !showPlayOverlay) {
+        currentVideo.play().catch(error => console.error('Playback failed:', error));
+        setIsPlaying(true);
+      }
+    }
+  }, [expandedDescription, isSliderOpen, currentIndex]);
 
   // Handle like button
   const handleLike = (videoId: string) => {
