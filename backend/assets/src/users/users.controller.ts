@@ -9,7 +9,11 @@ export class UsersController {
 
     @Get('profile')
     async getProfile(@User() user: ClerkUserDTO) {
-        return this.usersService.findOrCreate(user.sub);
+        return this.usersService.findOrCreate(user.sub, {
+            email: user.email,
+            first_name: user.given_name,
+            last_name: user.family_name
+        });
     }
 
     @Get(':id')

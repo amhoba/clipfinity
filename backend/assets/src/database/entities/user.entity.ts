@@ -1,15 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import { Entity, PrimaryColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
 import { Video } from './video.entity';
 import { Like } from './like.entity';
 import { View } from './view.entity';
 
 @Entity('users')
 export class User {
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryColumn()
     id: string;
-
-    @Column({ unique: true })
-    clerk_hash: string;
 
     @CreateDateColumn()
     created_at: Date;
@@ -18,7 +15,7 @@ export class User {
     updated_at: Date;
 
     @DeleteDateColumn()
-    deleted_at?: Date; // Add for soft delete
+    deleted_at?: Date;
 
     @OneToMany(() => Video, video => video.user)
     videos: Video[];

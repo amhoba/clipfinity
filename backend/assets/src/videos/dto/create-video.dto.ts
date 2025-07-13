@@ -1,9 +1,8 @@
-import { IsString, IsNotEmpty, IsUUID } from 'class-validator';
+import { IsString, IsNotEmpty } from 'class-validator';
 
 export class CreateVideoDto {
     @IsString()
     @IsNotEmpty()
-    @IsUUID()
     user_id: string;
 
     @IsString()

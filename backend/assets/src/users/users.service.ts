@@ -10,23 +10,21 @@ export class UsersService {
         private usersRepository: Repository<User>,
     ) { }
 
-    async create(clerk_hash: string): Promise<User> {
-        const user = this.usersRepository.create({ clerk_hash });
+    async create(clerkId: string): Promise<User> {
+        const user = this.usersRepository.create({
+            id: clerkId
+        });
         return this.usersRepository.save(user);
-    }
-
-    async findByClerkHash(clerk_hash: string): Promise<User | null> {
-        return this.usersRepository.findOne({ where: { clerk_hash } });
     }
 
     async findById(id: string): Promise<User | null> {
         return this.usersRepository.findOne({ where: { id } });
     }
 
-    async findOrCreate(clerk_hash: string): Promise<User> {
-        let user = await this.findByClerkHash(clerk_hash);
+    async findOrCreate(clerkId: string): Promise<User> {
+        let user = await this.findById(clerkId);
         if (!user) {
-            user = await this.create(clerk_hash);
+            user = await this.create(clerkId);
         }
         return user;
     }
