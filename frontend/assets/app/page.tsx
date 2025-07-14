@@ -105,7 +105,7 @@ export default function Home() {
     const video = videoRefs.current[currentIndex];
     if (!video) return;
 
-    if (!showPlayOverlay && !expandedDescription && !isSliderOpen) {
+    if (!showPlayOverlay && !expandedDescription && !isSliderOpen && !isProfileSliderOpen) {
       if (isPlaying) {
         video.play().catch((error) =>
           console.error('Autoplay failed:', error)
@@ -114,11 +114,11 @@ export default function Home() {
         video.pause();
       }
     }
-  }, [isPlaying, showPlayOverlay, expandedDescription, isSliderOpen]);
+  }, [isPlaying, showPlayOverlay, expandedDescription, isSliderOpen, isProfileSliderOpen]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (expandedDescription || isSliderOpen) return;
+      if (expandedDescription || isSliderOpen || isProfileSliderOpen) return;
 
       if (e.key === 'ArrowDown' && currentIndex < videos.length - 1) {
         setCurrentIndex(prev => prev + 1);
@@ -132,7 +132,7 @@ export default function Home() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentIndex, videos.length, expandedDescription, isSliderOpen]);
+  }, [currentIndex, videos.length, expandedDescription, isSliderOpen, isProfileSliderOpen]);
 
   useEffect(() => {
     const checkOrCreateUser = async () => {
@@ -159,7 +159,7 @@ export default function Home() {
     const currentVideo = videoRefs.current[currentIndex];
     if (!currentVideo) return;
 
-    if (expandedDescription || isSliderOpen) {
+    if (expandedDescription || isSliderOpen || isProfileSliderOpen) {
       // When dialog opens, remember if video was playing and pause it
       setWasPlayingBeforeDialog(isPlaying);
       currentVideo.pause();
@@ -171,7 +171,7 @@ export default function Home() {
         setIsPlaying(true);
       }
     }
-  }, [expandedDescription, isSliderOpen, currentIndex]);
+  }, [expandedDescription, isSliderOpen, isProfileSliderOpen, currentIndex]);
 
   // Handle like button
   const handleLike = (videoId: string) => {
@@ -190,7 +190,7 @@ export default function Home() {
 
   // Handle video click (play/pause)
   const handleVideoClick = () => {
-    if (expandedDescription || isSliderOpen) return;
+    if (expandedDescription || isSliderOpen || isProfileSliderOpen) return;
 
     if (!hasEnteredFullscreen) {
       if (document.documentElement.requestFullscreen) {
@@ -313,20 +313,20 @@ export default function Home() {
 
   // Handle touch events for swiping
   const handleTouchStart = (e: React.TouchEvent) => {
-    if (expandedDescription || isSliderOpen) return;
+    if (expandedDescription || isSliderOpen || isProfileSliderOpen) return;
 
     setTouchStart(e.targetTouches[0].clientY);
     setTouchEnd(0);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (expandedDescription || isSliderOpen) return;
+    if (expandedDescription || isSliderOpen || isProfileSliderOpen) return;
 
     setTouchEnd(e.targetTouches[0].clientY);
   };
 
   const handleTouchEnd = () => {
-    if (expandedDescription || isSliderOpen) return;
+    if (expandedDescription || isSliderOpen || isProfileSliderOpen) return;
 
     if (!touchStart || !touchEnd) return;
 
@@ -349,7 +349,7 @@ export default function Home() {
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
 
-    if (expandedDescription || isSliderOpen) return;
+    if (expandedDescription || isSliderOpen || isProfileSliderOpen) return;
 
     const isScrollUp = e.deltaY > 0;
     const isScrollDown = e.deltaY < 0;
