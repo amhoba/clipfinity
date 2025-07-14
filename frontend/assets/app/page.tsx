@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Heart, Play, Pause, User, X, ChevronUp, Upload } from 'lucide-react';
+import { useUser, useClerk } from '@clerk/nextjs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -70,6 +71,10 @@ export default function Home() {
   const [description, setDescription] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [wasPlayingBeforeDialog, setWasPlayingBeforeDialog] = useState(false);
+  const [isProfileSliderOpen, setIsProfileSliderOpen] = useState(false);
+
+  const { user } = useUser();
+  const { signOut } = useClerk();
 
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -357,6 +362,22 @@ export default function Home() {
     }
   };
 
+  const handleProfileButtonClick = () => {
+    setIsProfileSliderOpen(true);
+  };
+
+  const handleCloseProfileSlider = () => {
+    setIsProfileSliderOpen(false);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
   // Format numbers (1234 -> 1.2K)
   const formatNumber = (num: number) => {
     if (num >= 1000000) {
@@ -460,6 +481,40 @@ export default function Home() {
         </DialogContent>
       </Dialog>
 
+      {/* Profile Slider */}
+      <Dialog open={isProfileSliderOpen} onOpenChange={setIsProfileSliderOpen}>
+        <DialogContent showCloseButton={false} className="max-w-full h-full rounded-l-lg border-none bg-gray-900 p-4 sm:max-w-full sm:rounded-r-none flex flex-col justify-start">
+          <DialogHeader className="flex flex-row items-center justify-between mb-6">
+            <DialogTitle className="text-2xl font-bold text-white text-left">Profile</DialogTitle>
+            <button
+              onClick={handleCloseProfileSlider}
+              className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-pointer"
+            >
+              <X className="h-7 w-7 text-white" />
+            </button>
+          </DialogHeader>
+          <div className="space-y-6">
+            {user && (
+              <div className="flex flex-col items-center space-y-4">
+                <div className="w-20 h-20 rounded-full bg-white/10 flex items-center justify-center">
+                  <User className="w-10 h-10 text-white" />
+                </div>
+                <div className="text-center">
+                  <h3 className="text-xl font-bold text-white">{user.fullName || 'User'}</h3>
+                  <p className="text-white/70">{user.primaryEmailAddress?.emailAddress}</p>
+                </div>
+              </div>
+            )}
+            <button
+              onClick={handleLogout}
+              className="w-full p-3 rounded-full bg-red-500/20 backdrop-blur-sm hover:bg-red-500/30 transition-colors cursor-pointer text-lg text-white flex items-center justify-center"
+            >
+              Logout
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* Header */}
       <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/50 to-transparent pointer-events-none">
         <div className="flex items-start justify-between p-4 text-white">
@@ -480,7 +535,10 @@ export default function Home() {
               )}
             </button>
             {/* Profile Button */}
-            <button className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-pointer">
+            <button
+              onClick={handleProfileButtonClick}
+              className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-pointer"
+            >
               <User className="w-7 h-7 text-white" />
             </button>
           </div>
