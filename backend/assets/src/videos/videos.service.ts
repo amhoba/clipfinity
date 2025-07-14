@@ -4,12 +4,21 @@ import { Repository } from 'typeorm';
 import { Video } from '../database/entities/video.entity';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { UpdateVideoDto } from './dto/update-video.dto';
+import { MinioService } from '../minio/minio.service';
+import { Like } from '../database/entities/like.entity';
+import { View } from '../database/entities/view.entity';
+import { FeedVideoDto } from './dto/feed-video.dto';
 
 @Injectable()
 export class VideosService {
     constructor(
         @InjectRepository(Video)
         private videosRepository: Repository<Video>,
+        @InjectRepository(Like)
+        private likesRepository: Repository<Like>,
+        @InjectRepository(View)
+        private viewsRepository: Repository<View>,
+        private minioService: MinioService,
     ) { }
 
     async create(createVideoDto: CreateVideoDto): Promise<Video> {
@@ -43,5 +52,61 @@ export class VideosService {
 
     async remove(id: string): Promise<void> {
         await this.videosRepository.softDelete({ id });
+    }
+
+    async getNextVideoForFeed(userId: string): Promise<FeedVideoDto | null> {
+        // Get all video IDs
+        const videos = await this.videosRepository.find({ select: ['id'] });
+        if (videos.length === 0) {
+            return null;
+        }
+
+        // Deterministic random selection based on user ID and current date
+        const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+        const seed = `${userId}-${today}`;
+        const hash = this.stringToHash(seed);
+        const randomIndex = hash % videos.length;
+        const selectedVideoId = videos[randomIndex].id;
+
+        // Get full video details with relations
+        const video = await this.videosRepository.findOne({
+            where: { id: selectedVideoId },
+            relations: ['likes', 'views'],
+        });
+
+        if (!video) {
+            return null;
+        }
+
+        // Check if user liked this video
+        const liked = await this.likesRepository.findOne({
+            where: {
+                user_id: userId,
+                video_id: video.id,
+            },
+        });
+
+        // Get signed URL
+        let src = await this.minioService.getSignedUrl(video.object_id);
+        src = src.replace('http://minio:9000', '/minio');
+
+        return {
+            src,
+            title: video.title,
+            description: video.description,
+            likes: video.likes?.length || 0,
+            views: video.views?.length || 0,
+            liked: !!liked,
+        } as FeedVideoDto;
+    }
+
+    private stringToHash(str: string): number {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+            const char = str.charCodeAt(i);
+            hash = (hash << 5) - hash + char;
+            hash = hash & hash; // Convert to 32bit integer
+        }
+        return Math.abs(hash);
     }
 }

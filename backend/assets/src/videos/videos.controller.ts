@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
 import { VideosService } from './videos.service';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { UpdateVideoDto } from './dto/update-video.dto';
 import { User } from '../auth/user.decorator';
 import { ClerkUserDTO } from '../auth/dto/clerkuser.dto';
+import { FeedVideoDto } from './dto/feed-video.dto';
 
 @Controller('videos')
 export class VideosController {
@@ -40,5 +41,14 @@ export class VideosController {
     @Delete(':id')
     remove(@Param('id') id: string) {
         return this.videosService.remove(id);
+    }
+
+    @Get('next-feed-video')
+    async getNextFeedVideo(@User() user: ClerkUserDTO): Promise<FeedVideoDto> {
+        const video = await this.videosService.getNextVideoForFeed(user.sub);
+        if (!video) {
+            throw new NotFoundException('No videos available');
+        }
+        return video;
     }
 }
