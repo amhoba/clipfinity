@@ -16,6 +16,7 @@ interface Video {
   likes: number;
   views: number;
   liked: boolean;
+  isSpecialItem?: boolean;
 }
 
 // Sample video data with CC vertical videos
@@ -52,6 +53,15 @@ const sampleVideos: Video[] = [
     views: 4321,
     liked: false,
   },
+  {
+    id: 'loading',
+    src: '',
+    description: 'Loading more videos...',
+    likes: 0,
+    views: 0,
+    liked: false,
+    isSpecialItem: true // Mark this as a special item
+  }
 ];
 
 export default function Home() {
@@ -550,97 +560,108 @@ export default function Home() {
             key={video.id}
             className={`relative h-screen w-full flex items-center justify-center bg-black touch-pan-y`}
           >
-            <video
-              ref={el => videoRefs.current[index] = el}
-              className="h-full w-full touch-pan-y"
-              src={video.src}
-              loop
-              autoPlay
-              playsInline
-              onClick={handleVideoClick}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            />
-            {/* Video Play Button */}
-            {index === currentIndex && showPlayOverlay && (
-              <div
-                className="absolute inset-0 flex items-center justify-center z-10 bg-black/40 cursor-pointer"
-                onClick={handleVideoClick}
-              >
-                <div className="bg-white/20 p-4 rounded-full backdrop-blur-md">
-                  <Play className="w-10 h-10 text-white" />
-                </div>
+            {video.isSpecialItem ? (
+              // Special loading item UI
+              <div className="flex flex-col items-center justify-center text-white">
+                <div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin mb-4"></div>
+                <p className="text-xl font-medium">Loading more content...</p>
               </div>
-            )}
-            {/* Video Info Overlay */}
-            <div
-              className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/70 to-transparent p-4 pointer-events-none"
-              style={{ touchAction: 'none' }}
-            >
-              <div className="flex justify-between items-end">
-                {/* Description */}
-                <div className="flex-1 text-white pr-4 relative">
+            ) : (
+              // Regular video UI
+              <>
+                <video
+                  ref={el => videoRefs.current[index] = el}
+                  className="h-full w-full touch-pan-y"
+                  src={video.src}
+                  loop
+                  autoPlay
+                  playsInline
+                  onClick={handleVideoClick}
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
+                />
+                {/* Video Play Button */}
+                {index === currentIndex && showPlayOverlay && (
                   <div
-                    className={`relative text-sm font-medium mb-2 whitespace-pre-line transition-all duration-300 ${expandedDescription ? "pointer-events-auto" : "line-clamp-4"
-                      }`}
+                    className="absolute inset-0 flex items-center justify-center z-10 bg-black/40 cursor-pointer"
+                    onClick={handleVideoClick}
                   >
-                    {expandedDescription && (
-                      <div>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setExpandedDescription(false);
-                          }}
-                          className="group relative cursor-pointer pointer-events-auto"
-                        >
-                          <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
-                            <X className="w-7 h-7 text-white group-hover:text-red-500 transition-colors" />
-                          </div>
-                        </button>
-                      </div>
-                    )}
-                    {!expandedDescription && (
-                      <div>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setExpandedDescription(true);
-                          }}
-                          className="group relative cursor-pointer pointer-events-auto"
-                        >
-                          <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
-                            <ChevronUp className="w-7 h-7 text-white group-hover:text-green-400 transition-colors" />
-                          </div>
-                        </button>
-                      </div>
-                    )}
-                    <p className={`${expandedDescription ? "overflow-y-auto max-h-[50vh]" : ""}`} style={{ scrollbarWidth: 'none' }}>
-                      {video.description}
-                    </p>
-                  </div>
-                  <div className="text-xs text-white/70">{formatNumber(video.views)} views</div>
-                </div>
-                {/* Action Buttons */}
-                <div className="flex flex-col items-center space-y-4 pointer-events-auto">
-                  {/* Like Button */}
-                  <button
-                    onClick={() => handleLike(video.id)}
-                    className="group relative cursor-pointer"
-                  >
-                    <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
-                      <Heart
-                        className={`w-7 h-7 transition-colors ${video.liked ? 'fill-red-500 text-red-500' : 'text-white group-hover:text-red-500'
-                          }`}
-                      />
+                    <div className="bg-white/20 p-4 rounded-full backdrop-blur-md">
+                      <Play className="w-10 h-10 text-white" />
                     </div>
-                    <span className="text-white text-xs font-medium mt-1 block">
-                      {formatNumber(video.likes)}
-                    </span>
-                  </button>
+                  </div>
+                )}
+                {/* Video Info Overlay */}
+                <div
+                  className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/70 to-transparent p-4 pointer-events-none"
+                  style={{ touchAction: 'none' }}
+                >
+                  <div className="flex justify-between items-end">
+                    {/* Description */}
+                    <div className="flex-1 text-white pr-4 relative">
+                      <div
+                        className={`relative text-sm font-medium mb-2 whitespace-pre-line transition-all duration-300 ${expandedDescription ? "pointer-events-auto" : "line-clamp-4"
+                          }`}
+                      >
+                        {expandedDescription && (
+                          <div>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setExpandedDescription(false);
+                              }}
+                              className="group relative cursor-pointer pointer-events-auto"
+                            >
+                              <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
+                                <X className="w-7 h-7 text-white group-hover:text-red-500 transition-colors" />
+                              </div>
+                            </button>
+                          </div>
+                        )}
+                        {!expandedDescription && (
+                          <div>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setExpandedDescription(true);
+                              }}
+                              className="group relative cursor-pointer pointer-events-auto"
+                            >
+                              <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
+                                <ChevronUp className="w-7 h-7 text-white group-hover:text-green-400 transition-colors" />
+                              </div>
+                            </button>
+                          </div>
+                        )}
+                        <p className={`${expandedDescription ? "overflow-y-auto max-h-[50vh]" : ""}`} style={{ scrollbarWidth: 'none' }}>
+                          {video.description}
+                        </p>
+                      </div>
+                      <div className="text-xs text-white/70">{formatNumber(video.views)} views</div>
+                    </div>
+                    {/* Action Buttons */}
+                    <div className="flex flex-col items-center space-y-4 pointer-events-auto">
+                      {/* Like Button */}
+                      <button
+                        onClick={() => handleLike(video.id)}
+                        className="group relative cursor-pointer"
+                      >
+                        <div className="bg-white/10 backdrop-blur-sm rounded-full p-3 group-hover:bg-white/20 transition-colors">
+                          <Heart
+                            className={`w-7 h-7 transition-colors ${video.liked ? 'fill-red-500 text-red-500' : 'text-white group-hover:text-red-500'
+                              }`}
+                          />
+                        </div>
+                        <span className="text-white text-xs font-medium mt-1 block">
+                          {formatNumber(video.likes)}
+                        </span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </>
+            )}
           </div>
         ))}
       </div>
