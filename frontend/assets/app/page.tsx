@@ -245,7 +245,7 @@ export default function Home() {
         throw new Error(`Upload failed: ${uploadResponse.statusText}`);
       }
 
-      const uploadResult = await uploadResponse.json();
+      const { id: object_id } = await uploadResponse.json();
 
       // Step 2: Create video entry in database
       const createVideoResponse = await fetch('/backend/videos', {
@@ -256,6 +256,7 @@ export default function Home() {
         body: JSON.stringify({
           title,
           description,
+          object_id
         }),
         credentials: 'include',
       });
@@ -264,19 +265,6 @@ export default function Home() {
         throw new Error(`Video creation failed: ${createVideoResponse.statusText}`);
       }
 
-      const videoData = await createVideoResponse.json();
-
-      // Add the uploaded video to the videos array
-      const newVideo: Video = {
-        id: videoData.id || Date.now().toString(),
-        src: `/backend${uploadResult.url}`,
-        description: description,
-        likes: 0,
-        views: 0,
-        liked: false,
-      };
-
-      setVideos(prevVideos => [newVideo, ...prevVideos]);
       setCurrentIndex(0);
       setIsSliderOpen(false);
       setTitle('');

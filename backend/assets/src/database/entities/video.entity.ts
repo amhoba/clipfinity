@@ -9,6 +9,9 @@ export class Video {
     id: string;
 
     @Column()
+    object_id: string;
+
+    @Column()
     user_id: string;
 
     @Column()

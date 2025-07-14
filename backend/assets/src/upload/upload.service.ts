@@ -22,17 +22,10 @@ export class UploadService {
             throw new BadRequestException('File size too large.');
         }
 
-        const objectName = await this.minioService.uploadFile(file);
-        const signedUrl = await this.minioService.getSignedUrl(objectName);
+        const objectId = await this.minioService.uploadFile(file);
 
         return {
-            id: objectName,
-            url: signedUrl, // direct signed URL
-            description: `Uploaded video: ${file.originalname}`,
-            filename: objectName,
-            size: file.size,
-            mimetype: file.mimetype,
-            uploadedAt: new Date(),
+            id: objectId
         };
     }
 }
