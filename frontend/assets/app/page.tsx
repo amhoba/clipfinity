@@ -178,6 +178,57 @@ export default function Home() {
     }
   }, [currentIndex]);
 
+  // Record view immediately when video starts playing
+  useEffect(() => {
+    const video = videoRefs.current[currentIndex];
+    if (!video || videos[currentIndex].isSpecialItem) return;
+
+    let viewRecorded = false;
+
+    const handlePlay = async () => {
+      if (!viewRecorded) {
+        viewRecorded = true;
+
+        try {
+          const response = await fetch(`/backend/views/${videos[currentIndex].id}`, {
+            method: 'POST',
+            credentials: 'include',
+          });
+
+          if (response.ok) {
+            const result = await response.json();
+            if (result.viewRecorded) {
+              // Update the view count in the local state
+              setVideos(prevVideos =>
+                prevVideos.map(video =>
+                  video.id === videos[currentIndex].id
+                    ? { ...video, views: video.views + 1 }
+                    : video
+                )
+              );
+            }
+            console.log('View recorded.')
+          } else {
+            const errorData = await response.json();
+            console.error('Error recording view:', errorData.message);
+          }
+        } catch (error) {
+          console.error('Error catch when recording view:', error);
+        }
+      }
+    };
+
+    // Add event listener for play event
+    video.addEventListener('play', handlePlay);
+
+    // Cleanup
+    return () => {
+      if (video) {
+        video.removeEventListener('play', handlePlay);
+      }
+    };
+  }, [currentIndex, videos]);
+
   // Handle like button
   const handleLike = async (videoId: string) => {
     // Optimistic UI Update
