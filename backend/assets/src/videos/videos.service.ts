@@ -92,7 +92,6 @@ export class VideosService {
 
         return {
             src,
-            title: video.title,
             description: video.description,
             likes: video.likes?.length || 0,
             views: video.views?.length || 0,

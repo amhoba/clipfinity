@@ -5,9 +5,6 @@ export class FeedVideoDto {
     src: string;
 
     @IsString()
-    title: string;
-
-    @IsString()
     description: string;
 
     @IsNumber()

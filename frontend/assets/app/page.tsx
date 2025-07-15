@@ -42,7 +42,6 @@ export default function Home() {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isSliderOpen, setIsSliderOpen] = useState(false);
-  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [wasPlayingBeforeDialog, setWasPlayingBeforeDialog] = useState(false);
@@ -223,7 +222,7 @@ export default function Home() {
   // Handle form submission
   const handleFormSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!selectedFile || !title || !description) {
+    if (!selectedFile || !description) {
       alert('Please fill in all fields and select a video file');
       return;
     }
@@ -254,7 +253,6 @@ export default function Home() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          title,
           description,
           object_id
         }),
@@ -267,7 +265,6 @@ export default function Home() {
 
       setCurrentIndex(0);
       setIsSliderOpen(false);
-      setTitle('');
       setDescription('');
       setSelectedFile(null);
       if (fileInputRef.current) {
@@ -291,7 +288,6 @@ export default function Home() {
   // Handle slider close
   const handleCloseSlider = () => {
     setIsSliderOpen(false);
-    setTitle('');
     setDescription('');
     setSelectedFile(null);
     if (fileInputRef.current) {
@@ -419,16 +415,6 @@ export default function Home() {
             </button>
           </DialogHeader>
           <div className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="title" className="text-lg text-white/70 font-medium">Title</Label>
-              <Input
-                id="title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="Enter video title"
-                className="bg-white/10 border-white/20 text-white text-lg p-3 h-12 focus:border-blue-500"
-              />
-            </div>
             <div className="space-y-2">
               <Label htmlFor="description" className="text-lg text-white/70 font-medium">Description</Label>
               <Textarea

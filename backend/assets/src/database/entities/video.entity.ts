@@ -14,9 +14,6 @@ export class Video {
     @Column()
     user_id: string;
 
-    @Column()
-    title: string;
-
     @Column('text')
     description: string;
 
