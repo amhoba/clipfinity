@@ -61,11 +61,8 @@ export class VideosService {
             return null;
         }
 
-        // Deterministic random selection based on user ID and current date
-        const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-        const seed = `${userId}-${today}`;
-        const hash = this.stringToHash(seed);
-        const randomIndex = hash % videos.length;
+        // Randomly select a video
+        const randomIndex = Math.floor(Math.random() * videos.length);
         const selectedVideoId = videos[randomIndex].id;
 
         // Get full video details with relations
@@ -99,15 +96,5 @@ export class VideosService {
             liked: !!liked,
             isSpecialItem: false, // Always false for real videos
         } as FeedVideoDto;
-    }
-
-    private stringToHash(str: string): number {
-        let hash = 0;
-        for (let i = 0; i < str.length; i++) {
-            const char = str.charCodeAt(i);
-            hash = (hash << 5) - hash + char;
-            hash = hash & hash; // Convert to 32bit integer
-        }
-        return Math.abs(hash);
     }
 }
