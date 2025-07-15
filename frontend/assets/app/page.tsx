@@ -46,6 +46,7 @@ export default function Home() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [wasPlayingBeforeDialog, setWasPlayingBeforeDialog] = useState(false);
   const [isProfileSliderOpen, setIsProfileSliderOpen] = useState(false);
+  const [fetchingNextVideo, setFetchingNextVideo] = useState(false);
 
   const { user } = useUser();
   const { signOut } = useClerk();
@@ -146,6 +147,36 @@ export default function Home() {
       }
     }
   }, [expandedDescription, isSliderOpen, isProfileSliderOpen, currentIndex]);
+
+  // Fetch next video when the special item is about to be displayed
+  useEffect(() => {
+    if (currentIndex === videos.length - 1 && videos[currentIndex].isSpecialItem && !fetchingNextVideo) {
+      const fetchNextVideo = async () => {
+        setFetchingNextVideo(true);
+        try {
+          const response = await fetch('/backend/videos/next-feed-video', {
+            credentials: 'include',
+          });
+          if (response.ok) {
+            const newVideo: Video = await response.json();
+            setVideos(prevVideos => {
+              const updatedVideos = [...prevVideos];
+              // Insert the new video before the special item
+              updatedVideos.splice(updatedVideos.length - 1, 0, newVideo);
+              return updatedVideos;
+            });
+          } else {
+            console.error('Failed to fetch next video:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error fetching next video:', error);
+        } finally {
+          setFetchingNextVideo(false);
+        }
+      };
+      fetchNextVideo();
+    }
+  }, [currentIndex, videos, fetchingNextVideo]);
 
   // Handle like button
   const handleLike = async (videoId: string) => {

@@ -71,7 +71,7 @@ export class VideosService {
         // Get full video details with relations
         const video = await this.videosRepository.findOne({
             where: { id: selectedVideoId },
-            relations: ['likes', 'views'],
+            relations: ['user', 'likes', 'views'],
         });
 
         if (!video) {
@@ -91,11 +91,13 @@ export class VideosService {
         src = src.replace('http://minio:9000', '/minio');
 
         return {
+            id: video.id, // Include the video ID
             src,
             description: video.description,
             likes: video.likes?.length || 0,
             views: video.views?.length || 0,
             liked: !!liked,
+            isSpecialItem: false, // Always false for real videos
         } as FeedVideoDto;
     }
 

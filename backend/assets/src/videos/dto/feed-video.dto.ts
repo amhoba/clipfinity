@@ -1,6 +1,9 @@
-import { IsString, IsNumber, IsBoolean } from 'class-validator';
+import { IsString, IsNumber, IsBoolean, IsOptional } from 'class-validator';
 
 export class FeedVideoDto {
+    @IsString()
+    id: string;
+
     @IsString()
     src: string;
 
@@ -15,4 +18,8 @@ export class FeedVideoDto {
 
     @IsBoolean()
     liked: boolean;
+
+    @IsBoolean()
+    @IsOptional()
+    isSpecialItem?: boolean;
 }
