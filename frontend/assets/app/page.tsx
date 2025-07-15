@@ -564,7 +564,7 @@ export default function Home() {
       >
         {videos.map((video, index) => (
           <div
-            key={video.id}
+            key={index}
             className={`relative h-screen w-full flex items-center justify-center bg-black touch-pan-y`}
           >
             {video.isSpecialItem ? (
