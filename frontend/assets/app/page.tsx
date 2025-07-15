@@ -184,18 +184,43 @@ export default function Home() {
   }, [expandedDescription, isSliderOpen, isProfileSliderOpen, currentIndex]);
 
   // Handle like button
-  const handleLike = (videoId: string) => {
-    setVideos(prevVideos =>
-      prevVideos.map(video =>
-        video.id === videoId
-          ? {
-            ...video,
-            liked: !video.liked,
-            likes: video.liked ? video.likes - 1 : video.likes + 1,
-          }
-          : video
-      )
-    );
+  const handleLike = async (videoId: string) => {
+    // Optimistic UI Update
+    const updatedVideos = [...videos];
+    const videoToUpdate = updatedVideos[currentIndex];
+    updatedVideos[currentIndex] = {
+      ...videoToUpdate,
+      liked: !videoToUpdate.liked,
+      likes: videoToUpdate.liked ? videoToUpdate.likes - 1 : videoToUpdate.likes + 1,
+    };
+    setVideos(updatedVideos);
+
+    try {
+      const method = videoToUpdate.liked ? 'DELETE' : 'POST';
+      const response = await fetch(`/backend/likes/${videoId}`, {
+        method,
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update like status');
+      }
+    } catch (error) {
+      console.error('Error liking video:', error);
+      // Revert the optimistic update if API call fails
+      setVideos(prevVideos =>
+        prevVideos.map(video =>
+          video.id === videoId
+            ? {
+              ...video,
+              liked: videoToUpdate.liked,
+              likes: videoToUpdate.liked ? video.likes + 1 : video.likes - 1,
+            }
+            : video
+        )
+      );
+      alert('Could not update like. Please try again.');
+    }
   };
 
   // Handle video click (play/pause)
