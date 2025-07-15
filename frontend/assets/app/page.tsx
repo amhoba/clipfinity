@@ -19,53 +19,18 @@ interface Video {
   isSpecialItem?: boolean;
 }
 
-// Sample video data with CC vertical videos
-const sampleVideos: Video[] = [
-  {
-    id: '1',
-    src: 'http://127.0.0.1:8080/Pixar_Dog_and_Cat_s_Rainy_Dash.mp4',
-    description: 'Big Buck Bunny - A delightful animated short film 🐰',
-    likes: 1234,
-    views: 5678,
-    liked: false,
-  },
-  {
-    id: '2',
-    src: 'http://127.0.0.1:8080/Pixar_Friends_Warmth_and_Trust.mp4',
-    description: 'Elephants Dream - Surreal 3D animated adventure 🐘',
-    likes: 987,
-    views: 3456,
-    liked: false,
-  },
-  {
-    id: '3',
-    src: 'http://127.0.0.1:8080/Pixar_Rain_Scene_Video_Ready.mp4',
-    description: 'Sintel - Epic fantasy short film with dragons 🐉',
-    likes: 2341,
-    views: 7890,
-    liked: true,
-  },
-  {
-    id: '4',
-    src: 'http://127.0.0.1:8080/Pixar_Video_Max_and_Whiskers.mp4',
-    description: 'Tears of Steel - Sci-fi action packed adventure 🚀',
-    likes: 1876,
-    views: 4321,
-    liked: false,
-  },
-  {
-    id: 'loading',
-    src: '',
-    description: 'Loading more videos...',
-    likes: 0,
-    views: 0,
-    liked: false,
-    isSpecialItem: true // Mark this as a special item
-  }
-];
-
 export default function Home() {
-  const [videos, setVideos] = useState<Video[]>(sampleVideos);
+  const [videos, setVideos] = useState<Video[]>([
+    {
+      id: 'loading',
+      src: '',
+      description: 'Loading more videos...',
+      likes: 0,
+      views: 0,
+      liked: false,
+      isSpecialItem: true
+    }
+  ]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
