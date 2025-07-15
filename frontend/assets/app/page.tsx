@@ -176,7 +176,7 @@ export default function Home() {
       };
       fetchNextVideo();
     }
-  }, [currentIndex, videos, fetchingNextVideo]);
+  }, [currentIndex]);
 
   // Handle like button
   const handleLike = async (videoId: string) => {
