@@ -166,13 +166,10 @@ export default function Home() {
               return updatedVideos;
             });
           } else {
-            throw new Error(response.statusText);
+            console.error('Failed to fetch next video:', response.statusText);
           }
         } catch (error) {
           console.error('Error fetching next video:', error);
-          console.log('Retrying in 5 seconds ...');
-          await new Promise(resolve => setTimeout(resolve, 5000));
-          await fetchNextVideo();
         } finally {
           setFetchingNextVideo(false);
         }
