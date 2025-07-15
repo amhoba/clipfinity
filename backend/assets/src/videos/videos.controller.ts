@@ -28,6 +28,15 @@ export class VideosController {
         return this.videosService.findByUserId(user.sub);
     }
 
+    @Get('next-feed-video')
+    async getNextFeedVideo(@User() user: ClerkUserDTO): Promise<FeedVideoDto> {
+        const video = await this.videosService.getNextVideoForFeed(user.sub);
+        if (!video) {
+            throw new NotFoundException('No videos available');
+        }
+        return video;
+    }
+
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.videosService.findOne(id);
@@ -41,14 +50,5 @@ export class VideosController {
     @Delete(':id')
     remove(@Param('id') id: string) {
         return this.videosService.remove(id);
-    }
-
-    @Get('next-feed-video')
-    async getNextFeedVideo(@User() user: ClerkUserDTO): Promise<FeedVideoDto> {
-        const video = await this.videosService.getNextVideoForFeed(user.sub);
-        if (!video) {
-            throw new NotFoundException('No videos available');
-        }
-        return video;
     }
 }
