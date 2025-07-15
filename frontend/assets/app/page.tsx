@@ -42,7 +42,6 @@ export default function Home() {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isSliderOpen, setIsSliderOpen] = useState(false);
-  const [description, setDescription] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [wasPlayingBeforeDialog, setWasPlayingBeforeDialog] = useState(false);
   const [isProfileSliderOpen, setIsProfileSliderOpen] = useState(false);
@@ -54,6 +53,7 @@ export default function Home() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
   // Handle video play/pause on swipe
   useEffect(() => {
@@ -253,6 +253,7 @@ export default function Home() {
   // Handle form submission
   const handleFormSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    const description = descriptionRef.current?.value || '';
     if (!selectedFile || !description) {
       alert('Please fill in all fields and select a video file');
       return;
@@ -296,7 +297,9 @@ export default function Home() {
 
       setCurrentIndex(0);
       setIsSliderOpen(false);
-      setDescription('');
+      if (descriptionRef.current) {
+        descriptionRef.current.value = '';
+      }
       setSelectedFile(null);
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
@@ -319,7 +322,9 @@ export default function Home() {
   // Handle slider close
   const handleCloseSlider = () => {
     setIsSliderOpen(false);
-    setDescription('');
+    if (descriptionRef.current) {
+      descriptionRef.current.value = '';
+    }
     setSelectedFile(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
@@ -450,11 +455,10 @@ export default function Home() {
               <Label htmlFor="description" className="text-lg text-white/70 font-medium">Description</Label>
               <Textarea
                 id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                ref={descriptionRef}
                 placeholder="Enter video description"
                 rows={4}
-                className="bg-white/10 border-white/20 text-white text-lg p-3 focus:border-blue-500"
+                className="bg-white/10 border-white/20 text-white text-lg p-3 focus:border-blue-500 resize-none overflow-y-auto max-h-24"
               />
             </div>
             <div className="space-y-2">
