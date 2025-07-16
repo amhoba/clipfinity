@@ -96,7 +96,7 @@ services:
   gateway:
     restart: always
     # Enables the web UI and tells Traefik to listen to docker
-    command: --api.insecure=true --providers.docker=true --providers.docker.exposedbydefault=true --ping=true --log=true --log.level="TRACE" --accesslog=true --tracing=true
+    command: --api.insecure=true --providers.docker=true --ping=true --log=true --log.level="TRACE" --accesslog=true --tracing=true
     ports:
       # The HTTP (AND S) port
       - "80:80"

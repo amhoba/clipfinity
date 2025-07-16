@@ -79,7 +79,7 @@ services:
     volumes:
       - ../pgadmin/servers.json:/pgadmin4/servers.json
     ports:
-      - "8001:80"
+      - "127.0.0.1:8001:80"
     env_file:
       - ../pgadmin/.env
     environment:
@@ -96,13 +96,11 @@ services:
   gateway:
     restart: always
     # Enables the web UI and tells Traefik to listen to docker
-    command: --api.insecure=true --providers.docker=true --providers.docker.exposedbydefault=true --ping=true --log=true --log.level="TRACE" --accesslog=true --tracing=true
+    command: --providers.docker=true --ping=true --log=true --log.level="TRACE" --accesslog=true --tracing=true
     ports:
       # The HTTP (AND S) port
       - "80:80"
       - "443:443"
-      # The Web UI (enabled by --api.insecure=true)
-      - "8080:8080"
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
