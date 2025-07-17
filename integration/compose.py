@@ -12,9 +12,17 @@ def setup_typer_app(base_command: str):
 
     @app.command()
     def build(
-        plain: bool = typer.Option(False)
+        plain: bool = typer.Option(False),
+        nocache: bool = typer.Option(False),
+        name: str = typer.Option(
+            None,
+            help="service name to build",
+            autocompletion=lambda: utils.extract_compose_service_names(
+                utils.extract_yaml_files_from_base_command(base_command)
+            )
+        )
     ):
-        os.system(f"{base_command} build" + (" --progress=plain" if plain else ""))
+        os.system(f"{base_command} build" + (" --progress=plain" if plain else "") + (" --no-cache" if nocache else "") + (name if name else ""))
 
 
     @app.command()
