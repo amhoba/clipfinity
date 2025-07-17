@@ -632,7 +632,9 @@ export default function Home() {
               // Regular video UI
               <>
                 <video
-                  ref={el => videoRefs.current[index] = el}
+                  ref={el => {
+                    videoRefs.current[index] = el;
+                  }}
                   className="h-full w-full touch-pan-y"
                   src={video.src}
                   loop

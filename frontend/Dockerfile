@@ -29,15 +29,15 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
 #
 #
 
-FROM dev AS dev-build
-# USER root
-# RUN chown node:node /app ;
-# ADD --chown=node:node source /app
-# USER node
-# RUN yarn
-# RUN yarn build
-# RUN ls -lah
-
 FROM dev AS prod
-# [todo] copy from dev-build.
-CMD ["bash", "-c", "yarn start"]
+
+ARG NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+ARG CLERK_SECRET_KEY
+
+ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+ENV CLERK_SECRET_KEY=$CLERK_SECRET_KEY
+
+USER node
+ADD --chown=node:node assets/ .
+RUN pnpm i
+RUN pnpm build
