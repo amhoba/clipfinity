@@ -31,8 +31,6 @@ services:
     build:
       context: ../backend
       target: prod
-    volumes:
-      - ../backend/assets:/assets
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.backend.rule=PathPrefix(`/backend`)"
