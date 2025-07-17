@@ -22,7 +22,7 @@ def setup_typer_app(base_command: str):
             )
         )
     ):
-        os.system(f"{base_command} build" + (" --progress=plain" if plain else "") + (" --no-cache" if nocache else "") + (name if name else ""))
+        os.system(f"{base_command} build" + (" --progress=plain" if plain else "") + (" --no-cache" if nocache else "") + (f" {name}" if name else ""))
 
 
     @app.command()
