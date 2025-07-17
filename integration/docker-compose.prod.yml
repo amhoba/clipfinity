@@ -52,7 +52,7 @@ services:
       context: ../minio
       target: prod
     ports:
-      - "8002:9001"   # Console UI
+      - "127.0.0.1:8002:9001"   # Console UI
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.minio.rule=PathPrefix(`/minio`)"
