@@ -26,3 +26,8 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl 
 #
 
 FROM dev AS prod
+
+USER node
+ADD --chown=node:node assets/ .
+RUN pnpm i
+RUN pnpm build
