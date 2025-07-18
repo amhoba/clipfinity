@@ -108,6 +108,7 @@ services:
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
+      - traefik_acme_storage:/etc/traefik/acme
     environment:
       - TZ=UTC
       - STAGE=prod
@@ -124,3 +125,4 @@ networks:
 volumes:
   database_pgdata:
   minio_data:
+  traefik_acme_storage:
