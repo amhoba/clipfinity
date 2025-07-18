@@ -3,8 +3,14 @@ providers:
   docker:
     exposedbydefault: false
 
+ping: {}
+
 log:
-  level: ERROR
+  level: TRACE
+
+accessLog: {}
+
+tracing: {}
 
 entryPoints:
   web:
