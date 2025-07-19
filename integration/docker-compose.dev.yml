@@ -14,6 +14,9 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
+      - "traefik.http.middlewares.frontend-set-header.headers.customrequestheaders.X-Forwarded-Host=${DOMAIN}"
+      - "traefik.http.middlewares.frontend-set-header.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.frontend.middlewares=frontend-set-header"
     networks:
       - clipfinity
 
