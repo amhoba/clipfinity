@@ -1,5 +1,3 @@
-[![Watch the video]()](https://raw.githubusercontent.com/amhoba/clipfinity/refs/heads/main/demonstration.mp4)
-
 # Clipfinity
 
 Clipfinity is a TikTok-inspired video-sharing platform that allows users to upload, view, and like short videos. Built with a modern tech stack.
