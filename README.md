@@ -2,6 +2,10 @@
 
 Clipfinity is a TikTok-inspired video-sharing platform that allows users to upload, view, and like short videos. Built with a modern tech stack.
 
+
+https://github.com/user-attachments/assets/1f2d08ee-14f0-4262-9e58-0e87b1462c5e
+
+
 ## Table of Contents
 - [Features](#features)
 - [Tech Stack](#tech-stack)
