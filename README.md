@@ -1,7 +1,4 @@
-<video controls>
-  <source src="demonstration.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[![Watch the video]()](https://raw.githubusercontent.com/amhoba/clipfinity/refs/heads/main/demonstration.mp4)
 
 # Clipfinity
 
