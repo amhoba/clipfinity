@@ -1,3 +1,8 @@
+<video controls>
+  <source src="demonstration.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 # Clipfinity
 
 Clipfinity is a TikTok-inspired video-sharing platform that allows users to upload, view, and like short videos. Built with a modern tech stack.
