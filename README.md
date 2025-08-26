@@ -108,8 +108,8 @@ https://github.com/user-attachments/assets/1f2d08ee-14f0-4262-9e58-0e87b1462c5e
 3. Access the app:
    - Full App: `http://localhost`
    - Backend API: `http://localhost/backend`
-   - pgAdmin: `http://localhost:8001`
-   - MinIO Admin UI: `http://localhost:8002`
+   - pgAdmin: `http://localhost:3001`
+   - MinIO Admin UI: `http://localhost:3002`
    - MinIO: `http://localhost/minio`
 
 ### Production Deployment
@@ -134,10 +134,10 @@ https://github.com/user-attachments/assets/1f2d08ee-14f0-4262-9e58-0e87b1462c5e
 Clipfinity uses Clerk for secure user authentication. Configure Clerk in the `backend` and `frontend` and `integration`'s `.env` files with your API keys.
 
 ## Object Storage
-MinIO is used for storing video files. It is accessible through the Traefik gateway. The administrative UI is accessible at `http://localhost:8002`. Configure MinIO credentials in the `minio/.env` file.
+MinIO is used for storing video files. It is accessible through the Traefik gateway. The administrative UI is accessible at `http://localhost:3002`. Configure MinIO credentials in the `minio/.env` file.
 
 ## Database Administration
-pgAdmin is available for managing the PostgreSQL database. Access it at `http://127.0.0.1:8001` in development and production mode and log in with `postgres@gmail.com` as email and password, then open the database using the credentials specified in `pgadmin/servers.json`.
+pgAdmin is available for managing the PostgreSQL database. Access it at `http://127.0.0.1:3001` in development and production mode and log in with `postgres@gmail.com` as email and password, then open the database using the credentials specified in `pgadmin/servers.json`.
 
 ## Healthchecks
 All services include healthchecks to ensure reliability:
